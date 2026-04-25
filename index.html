@@ -446,7 +446,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 1. 簡介 ============== -->
 <section class="block" id="intro">
   <div class="container">
     <h2><span class="num">01</span>三大裹漿體系與核心問題</h2>
@@ -480,7 +479,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 2. 油炸原理動畫 ============== -->
 <section class="block" id="fry">
   <div class="container">
     <h2><span class="num">02</span>油炸原理：水跑出來，油填進去，殼乾掉變酥</h2>
@@ -510,18 +508,13 @@ blockquote.pull{
             <stop offset="0%" stop-color="#e0f0ff"/><stop offset="100%" stop-color="#5fa8e0"/>
           </radialGradient>
         </defs>
-        <!-- 油溫標 -->
         <rect x="540" y="14" width="160" height="22" rx="11" fill="rgba(0,0,0,.3)"/>
         <text x="620" y="29" fill="#fff" font-size="13" text-anchor="middle">油溫 170–180 ℃</text>
 
-        <!-- 食物 -->
         <g id="fryFoodG" transform="translate(360,210)">
-          <!-- 肉本體 -->
           <ellipse cx="0" cy="0" rx="120" ry="78" fill="url(#meatGrad)"/>
-          <!-- 麵衣 (會切換) -->
           <g id="coatGroup">
             <ellipse id="coatEllipse" cx="0" cy="0" rx="135" ry="92" fill="url(#rawCoat)" opacity="0.92"/>
-            <!-- 階段 4 用的孔洞層 -->
             <g id="poresLayer" style="opacity:0; transition:opacity 1.2s">
               <circle cx="-80" cy="-30" r="5" fill="#3b1808"/>
               <circle cx="-50" cy="-55" r="6" fill="#3b1808"/>
@@ -542,22 +535,17 @@ blockquote.pull{
               <circle cx="0" cy="-25" r="5" fill="#3b1808"/>
               <circle cx="55" cy="-10" r="4" fill="#3b1808"/>
             </g>
-            <!-- 結殼亮邊（階段 3 開始顯示） -->
             <ellipse id="shellRing" cx="0" cy="0" rx="135" ry="92" fill="none" stroke="#3a1c08" stroke-width="0" />
           </g>
         </g>
 
-        <!-- 水分子層（從食物逸出） -->
         <g id="watersOut"></g>
-        <!-- 氣泡層 -->
         <g id="bubblesG"></g>
-        <!-- 蒸氣 -->
         <g id="steamG" opacity="0.7">
           <ellipse id="steam1" cx="200" cy="100" rx="40" ry="18" fill="#ffffff" opacity="0"/>
           <ellipse id="steam2" cx="500" cy="110" rx="50" ry="20" fill="#ffffff" opacity="0"/>
         </g>
 
-        <!-- 階段標籤 -->
         <g>
           <rect x="14" y="380" width="450" height="28" rx="8" fill="rgba(0,0,0,.45)"/>
           <text id="fryCaption" x="22" y="399" fill="#fff" font-size="14">步驟 1 · 入油：表面溫度從 20℃ 瞬升至 100℃，水分開始氣化</text>
@@ -572,7 +560,6 @@ blockquote.pull{
         <button class="btn" id="fryAuto">▶ 自動播放</button>
       </div>
 
-      <!-- 階段對照表（讓四階段差異看得超清楚） -->
       <div class="fry-grid">
         <div class="fry-mini" data-fry-mini="1">
           <div class="mini-label">1 · 入油</div>
@@ -691,7 +678,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 3. 天然澱粉 ============== -->
 <section class="block" id="native">
   <div class="container">
     <h2><span class="num">03</span>認識澱粉：直鏈 vs 支鏈、各源頭的比例差</h2>
@@ -745,7 +731,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 4. 磷酸交聯 ============== -->
 <section class="block" id="xlink">
   <div class="container">
     <h2><span class="num">04</span>磷酸交聯 (Phosphate Cross-link)：把鬆散的繩子綁成網</h2>
@@ -758,7 +743,6 @@ blockquote.pull{
           <defs>
             <radialGradient id="glu1" cx="40%" cy="40%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#5a8c3a"/></radialGradient>
           </defs>
-          <!-- 三條鬆散的澱粉鏈，會「呼吸」式來回擺動 -->
           <g id="nativeChain" stroke="#5a8c3a" stroke-width="2" fill="url(#glu1)">
             <g class="chain c1">
               <path d="M 20 60 Q 90 40 160 60 Q 230 80 320 50" fill="none" stroke-dasharray="4 3"/>
@@ -799,7 +783,6 @@ blockquote.pull{
             <circle cx="18" cy="195" r="9"/><circle cx="95" cy="195" r="9"/><circle cx="170" cy="195" r="9"/>
             <circle cx="240" cy="195" r="9"/><circle cx="325" cy="195" r="9"/>
           </g>
-          <!-- 磷酸交聯橋，動畫式淡入 -->
           <g id="xlinks" stroke="#c9472b" stroke-width="2.5" stroke-dasharray="2 2">
             <line x1="90" y1="60" x2="100" y2="130" class="xl"/>
             <line x1="100" y1="130" x2="95" y2="195" class="xl"/>
@@ -847,7 +830,6 @@ blockquote.pull{
       <p class="note" style="margin-top:10px"><b>觀察重點：</b>天然澱粉黏度先衝高再迅速崩解（chains 散開）；磷酸交聯澱粉黏度上升較慢但<b class="hl">持續穩定</b>，這就是它在罐頭、湯品、長時間炸製被廣泛使用的原因。</p>
     </div>
 
-    <!-- 澱粉老化樹狀圖（支鏈澱粉 amylopectin cluster model） -->
     <div class="card">
       <h3 style="margin-top:0">🌳 澱粉老化樹狀圖（Retrogradation Tree Model）</h3>
       <p style="margin:0 0 10px; color:var(--ink-soft)">
@@ -917,7 +899,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 5. 醋酸取代 ============== -->
 <section class="block" id="acetyl">
   <div class="container">
     <h2><span class="num">05</span>醋酸取代 (Acetylation)：把會抱團的手套住，避免老化</h2>
@@ -927,25 +908,20 @@ blockquote.pull{
       <div class="mol-card">
         <h4>修飾前 · 天然澱粉的 OH 群</h4>
         <svg class="mol-svg" viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
-          <!-- 上方：游離直鏈澱粉 (amylose) — 紅色 -->
           <g stroke="#9c2f1a" stroke-width="2" fill="#fff">
             <path d="M 30 90 Q 110 70 190 90 Q 270 110 340 90" fill="none"/>
             <circle cx="30" cy="90" r="8"/><circle cx="110" cy="78" r="8"/><circle cx="190" cy="90" r="8"/><circle cx="270" cy="105" r="8"/><circle cx="340" cy="92" r="8"/>
           </g>
-          <!-- 下方：支鏈澱粉外側 A-chain — 綠色 -->
           <g stroke="#5a8c3a" stroke-width="2" fill="#fff">
             <path d="M 30 170 Q 110 150 190 170 Q 270 190 340 170" fill="none"/>
             <circle cx="30" cy="170" r="8"/><circle cx="110" cy="158" r="8"/><circle cx="190" cy="170" r="8"/><circle cx="270" cy="185" r="8"/><circle cx="340" cy="172" r="8"/>
           </g>
-          <!-- 標籤 -->
           <text x="345" y="92" font-size="10" fill="#9c2f1a" font-weight="700" text-anchor="end">直鏈 amylose</text>
           <text x="345" y="186" font-size="10" fill="#5a8c3a" font-weight="700" text-anchor="end">支鏈 A-chain</text>
-          <!-- OH 群 -->
           <g font-size="11" font-weight="700" text-anchor="middle">
             <text x="110" y="60" fill="#9c2f1a">OH</text><text x="190" y="72" fill="#9c2f1a">OH</text><text x="270" y="88" fill="#9c2f1a">OH</text>
             <text x="110" y="200" fill="#5a8c3a">OH</text><text x="190" y="210" fill="#5a8c3a">OH</text><text x="270" y="222" fill="#5a8c3a">OH</text>
           </g>
-          <!-- 氫鍵（會閃爍動畫）— 跨「直鏈↔支鏈」與「同類間」 -->
           <g class="hbond" stroke="#c9472b" stroke-width="1.5" stroke-dasharray="3 3">
             <line x1="110" y1="65" x2="110" y2="195"/>
             <line x1="190" y1="76" x2="190" y2="206"/>
@@ -959,7 +935,6 @@ blockquote.pull{
       <div class="mol-card">
         <h4>修飾後 · 醋酸取代澱粉 (Acetylated Starch)</h4>
         <svg class="mol-svg" viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
-          <!-- 上方仍為直鏈澱粉、下方仍為支鏈 A-chain，但都被 OAc 阻擋 -->
           <g stroke="#9c2f1a" stroke-width="2" fill="#fff" opacity="0.55">
             <path d="M 30 90 Q 110 70 190 90 Q 270 110 340 90" fill="none"/>
             <circle cx="30" cy="90" r="8"/><circle cx="110" cy="78" r="8"/><circle cx="190" cy="90" r="8"/><circle cx="270" cy="105" r="8"/><circle cx="340" cy="92" r="8"/>
@@ -970,7 +945,6 @@ blockquote.pull{
           </g>
           <text x="345" y="92" font-size="10" fill="#9c2f1a" font-weight="700" text-anchor="end">直鏈 amylose</text>
           <text x="345" y="186" font-size="10" fill="#5a8c3a" font-weight="700" text-anchor="end">支鏈 A-chain</text>
-          <!-- 醋酸基 (用較大方塊表示體積大) -->
           <g class="acetyl">
             <g transform="translate(110,55)">
               <rect x="-14" y="-10" width="28" height="20" rx="4" fill="#d89a38" stroke="#7a5b18"/>
@@ -1029,7 +1003,6 @@ blockquote.pull{
       </div>
     </div>
 
-    <!-- 醋酸取代版 老化樹狀圖 -->
     <div class="card">
       <h3 style="margin-top:0">🌳 澱粉老化結構圖（凍融場景對照）</h3>
       <p style="margin:0 0 10px; color:var(--ink-soft)">
@@ -1086,7 +1059,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 6. 原始 vs 修飾 比較 ============== -->
 <section class="block" id="compare">
   <div class="container">
     <h2><span class="num">06</span>原始澱粉 vs 修飾澱粉：經過油炸與蒸煮後的命運</h2>
@@ -1139,7 +1111,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 7. 複配粉配方 ============== -->
 <section class="block" id="formula">
   <div class="container">
     <h2><span class="num">07</span>油炸複配粉配方：每個成分在做什麼？</h2>
@@ -1181,9 +1152,7 @@ blockquote.pull{
       </div>
     </div>
 
-    <!-- 蛋白質、增稠劑、膨發劑 三大系統可視化對照 -->
     <div class="grid-3">
-      <!-- 蛋白質 -->
       <div class="card">
         <h3 style="margin-top:0; color:var(--accent-4)">🥚 蛋白質系統 (3–8%)</h3>
         <p style="margin:0 0 8px; font-size:14px; color:var(--ink-soft)">提供 <b>乳化、黏結、Maillard 上色底物</b> 三件事，是表皮香氣與附著率的關鍵。</p>
@@ -1202,7 +1171,6 @@ blockquote.pull{
         <div class="mini-bar"><span>成本   ↑↑</span><div class="mb"><div style="width:60%; background:#aaa"></div></div></div>
       </div>
 
-      <!-- 增稠劑 -->
       <div class="card">
         <h3 style="margin-top:0; color:var(--accent-3)">🧪 增稠劑系統 (&lt; 0.5%)</h3>
         <p style="margin:0 0 8px; font-size:14px; color:var(--ink-soft)">用量極小，作用極大。穩定裹漿<b>黏度與懸浮性</b>，防止靜置分層、防止滴落。</p>
@@ -1221,7 +1189,6 @@ blockquote.pull{
         <div class="mini-bar"><span>用量需求 ↓↓↓</span><div class="mb"><div style="width:15%; background:#3e6b9b"></div></div></div>
       </div>
 
-      <!-- 膨發劑 -->
       <div class="card">
         <h3 style="margin-top:0; color:var(--accent)">🫧 膨發劑系統 (1–4%)</h3>
         <p style="margin:0 0 8px; font-size:14px; color:var(--ink-soft)">產氣形成<b>內部孔洞</b>。原則：要「<u>慢釋出</u>」，太早釋氣會在裹粉階段就用光。</p>
@@ -1241,7 +1208,6 @@ blockquote.pull{
       </div>
     </div>
 
-    <!-- SAPP 雙作用釋氣示意 -->
     <div class="card">
       <h3 style="margin-top:0">⏱ SAPP 雙作用釋氣動畫（關鍵原則：「慢釋出」）</h3>
       <p style="margin:0 0 10px; color:var(--ink-soft)">下面是兩種膨發劑系統，從攪拌 → 裹粉 → 入油 → 油炸完成的 CO₂ 釋放曲線。看 SAPP 為什麼是黃金標準。</p>
@@ -1249,11 +1215,9 @@ blockquote.pull{
         <div>
           <div style="text-align:center; font-weight:700; color:#a8561a; margin-bottom:6px">小蘇打 + 酒石酸氫鉀（快釋）</div>
           <svg viewBox="0 0 360 160" style="width:100%; height:160px; background:#fff7ea; border-radius:8px; border:1px solid var(--line)">
-            <!-- 軸 -->
             <line x1="30" y1="130" x2="340" y2="130" stroke="#aaa" stroke-width="1"/>
             <line x1="30" y1="20" x2="30" y2="130" stroke="#aaa" stroke-width="1"/>
             <text x="32" y="14" font-size="10" fill="#555">CO₂ 釋出量</text>
-            <!-- 階段標 -->
             <text x="60" y="148" font-size="10" fill="#555" text-anchor="middle">攪拌</text>
             <text x="140" y="148" font-size="10" fill="#555" text-anchor="middle">裹粉</text>
             <text x="220" y="148" font-size="10" fill="#555" text-anchor="middle">入油</text>
@@ -1261,7 +1225,6 @@ blockquote.pull{
             <line x1="100" y1="20" x2="100" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="180" y1="20" x2="180" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="260" y1="20" x2="260" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
-            <!-- 快釋曲線 -->
             <path d="M 30 128 Q 65 30 100 28 L 180 50 L 260 95 L 340 120" fill="none" stroke="#c9472b" stroke-width="2.5"/>
             <text x="80" y="40" font-size="11" fill="#c9472b">早早衝高峰 → 入油時氣已用完 ❌</text>
           </svg>
@@ -1279,7 +1242,6 @@ blockquote.pull{
             <line x1="100" y1="20" x2="100" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="180" y1="20" x2="180" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="260" y1="20" x2="260" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
-            <!-- 雙峰曲線 -->
             <path d="M 30 128 Q 70 105 100 95 Q 140 80 180 75 Q 200 35 220 28 L 280 35 L 340 90" fill="none" stroke="#3e6b9b" stroke-width="2.5"/>
             <text x="65" y="100" font-size="11" fill="#3e6b9b">第一波釋氣（室溫）</text>
             <text x="225" y="22" font-size="11" fill="#3e6b9b">第二波（高溫衝爆）✓</text>
@@ -1301,7 +1263,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 8. 產品介紹 ============== -->
 <section class="block" id="products">
   <div class="container">
     <h2><span class="num">08</span>國際油炸產品配方解析</h2>
@@ -1321,7 +1282,6 @@ blockquote.pull{
   </div>
 </section>
 
-<!-- ============== 9. 油炸食品指標 ============== -->
 <section class="block" id="metrics">
   <div class="container">
     <h2><span class="num">09</span>油炸食品九大評分指標</h2>
@@ -1944,24 +1904,19 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="186" rx="92" ry="11" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="184" rx="76" ry="6" fill="rgba(0,0,0,.18)"/>
         <g class="breathe" filter="url(#kfcShadow)">
-          <!-- 雞腿骨 -->
           <g transform="translate(120 62) rotate(-18)">
             <rect x="-7" y="-12" width="14" height="44" rx="7" fill="url(#kfcBone)" stroke="#9a8458" stroke-width=".7"/>
             <ellipse cx="-9" cy="-13" rx="11" ry="8" fill="url(#kfcBone)" stroke="#9a8458" stroke-width=".7"/>
             <ellipse cx="9" cy="-13" rx="11" ry="8" fill="url(#kfcBone)" stroke="#9a8458" stroke-width=".7"/>
             <ellipse cx="-7" cy="-15" rx="3" ry="2" fill="rgba(255,255,255,.6)"/>
           </g>
-          <!-- 主體外殼 -->
           <path d="M 70 178 Q 40 130 62 88 Q 88 50 132 60 Q 182 72 188 130 Q 192 175 150 180 Z"
                 fill="url(#kfcCoat)" stroke="#3a1804" stroke-width="1.6"/>
-          <!-- 暗角 -->
           <path d="M 70 178 Q 40 130 62 88 Q 88 50 132 60 Q 182 72 188 130 Q 192 175 150 180 Z"
                 fill="url(#kfcDeep)"/>
-          <!-- 鱗片麵衣紋理 -->
           <g fill="#2a1002" opacity=".6">
             <path d="M 76 130 q 8 -10 18 -3 q -5 11 -18 3 z"/>
             <path d="M 108 148 q 10 -8 20 1 q -7 10 -20 -1 z"/>
@@ -1973,27 +1928,23 @@ function drawStarchTree(svgId, modified, stage, mode){
             <path d="M 118 168 q 7 -8 14 -2 q -3 8 -14 2 z"/>
             <path d="M 155 168 q 6 -8 13 -2 q -3 8 -13 2 z"/>
           </g>
-          <!-- 微小斑點增加紋理 -->
           <g fill="#5a2607" opacity=".4">
             <circle cx="84" cy="115" r="1.2"/><circle cx="98" cy="138" r="1"/>
             <circle cx="135" cy="105" r="1.2"/><circle cx="148" cy="128" r="1"/>
             <circle cx="115" cy="135" r="1.2"/><circle cx="170" cy="120" r="1"/>
             <circle cx="105" cy="118" r=".9"/><circle cx="160" cy="105" r="1"/>
           </g>
-          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="98" cy="105" rx="3.5" ry="2.2"/>
             <ellipse class="sparkle s2" cx="128" cy="118" rx="3.5" ry="2.2"/>
             <ellipse class="sparkle s3" cx="158" cy="135" rx="3" ry="1.8"/>
             <ellipse class="sparkle s4" cx="115" cy="155" rx="3" ry="1.8"/>
           </g>
-          <!-- 移動的油亮反光條 -->
           <g clip-path="url(#kfcClip)">
             <rect class="shimmer-stripe" x="-60" y="50" width="48" height="140"
                   fill="url(#kfcGloss)" transform="skewX(-22)" opacity=".55"/>
           </g>
         </g>
-        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.6)">
           <circle class="oil-bubble" cx="60" cy="170" r="3"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2.5"/>
@@ -2046,26 +1997,20 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
-        <!-- 紙袋（後方） -->
         <path d="M 50 80 L 60 188 L 180 188 L 190 80 Z" fill="url(#bag)" stroke="#8a6a35" stroke-width="1.2"/>
         <path d="M 50 80 Q 70 70 120 70 Q 170 70 190 80" fill="none" stroke="#8a6a35" stroke-width="1.2"/>
-        <!-- 紙袋摺痕 -->
         <g stroke="rgba(120,90,40,.35)" stroke-width=".8" fill="none">
           <line x1="80" y1="80" x2="85" y2="186"/>
           <line x1="120" y1="72" x2="120" y2="188"/>
           <line x1="160" y1="80" x2="155" y2="186"/>
         </g>
         <g class="breathe" filter="url(#cutletShadow)">
-          <!-- 雞排主體 -->
           <path d="M 60 90 Q 50 30 120 28 Q 195 30 185 95 Q 185 110 170 110 L 70 110 Q 55 105 60 90 Z"
                 fill="url(#cutletCoat)" stroke="#3a1804" stroke-width="1.6"/>
-          <!-- 暗角 -->
           <path d="M 60 90 Q 50 30 120 28 Q 195 30 185 95 Q 185 110 170 110 L 70 110 Q 55 105 60 90 Z"
                 fill="url(#cutletDeep)"/>
-          <!-- 樹薯粒粉「顆粒感」（深色凸點） -->
           <g fill="#2a1002" opacity=".85">
             <circle cx="80" cy="55" r="2.2"/><circle cx="100" cy="42" r="1.8"/><circle cx="120" cy="38" r="2.4"/>
             <circle cx="140" cy="45" r="2"/><circle cx="160" cy="58" r="2.2"/><circle cx="170" cy="80" r="1.7"/>
@@ -2074,28 +2019,23 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle cx="100" cy="90" r="1.7"/><circle cx="170" cy="65" r="2.2"/><circle cx="85" cy="98" r="1.7"/>
             <circle cx="148" cy="82" r="1.6"/><circle cx="118" cy="50" r="1.5"/><circle cx="92" cy="80" r="1.4"/>
           </g>
-          <!-- 顆粒高光（亮面顆粒） -->
           <g fill="#fff5c0" opacity=".55">
             <circle cx="79" cy="54" r=".8"/><circle cx="119" cy="37" r="1"/><circle cx="159" cy="57" r=".9"/>
             <circle cx="89" cy="69" r=".7"/><circle cx="134" cy="74" r=".8"/><circle cx="124" cy="94" r=".8"/>
           </g>
-          <!-- 焦邊 -->
           <path d="M 60 90 Q 50 30 120 28 Q 195 30 185 95"
                 fill="none" stroke="rgba(50,18,3,.55)" stroke-width="2.2"/>
-          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="92" cy="50" rx="4.5" ry="2.5" transform="rotate(-20 92 50)"/>
             <ellipse class="sparkle s2" cx="148" cy="55" rx="4.5" ry="2.5" transform="rotate(15 148 55)"/>
             <ellipse class="sparkle s3" cx="115" cy="78" rx="3.5" ry="2"/>
             <ellipse class="sparkle s4" cx="160" cy="98" rx="3" ry="1.8"/>
           </g>
-          <!-- 移動的油亮反光條 -->
           <g clip-path="url(#cutletClip)">
             <rect class="shimmer-stripe" x="-60" y="20" width="42" height="100"
                   fill="url(#cutletGloss)" transform="skewX(-22)" opacity=".55"/>
           </g>
         </g>
-        <!-- 椒鹽落下動畫 -->
         <g fill="#7a3a07">
           <circle class="salt-fall" cx="105" cy="40" r="1.1"/>
           <circle class="salt-fall s2" cx="135" cy="35" r=".9"/>
@@ -2103,7 +2043,6 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s4" cx="90" cy="38" r=".9"/>
           <circle class="salt-fall s5" cx="120" cy="32" r="1"/>
         </g>
-        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.6)">
           <circle class="oil-bubble" cx="55" cy="170" r="3"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2.5"/>
@@ -2158,14 +2097,11 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
-        <!-- 紙袋盒 -->
         <path d="M 40 90 L 50 188 L 190 188 L 200 90 Z" fill="url(#ssBox)" stroke="#8a6a35" stroke-width="1.2"/>
         <path d="M 40 90 L 200 90" stroke="#8a6a35" stroke-width="1" stroke-dasharray="4 3"/>
         <g class="breathe" filter="url(#ssShadow)">
-          <!-- 鹹酥雞 5 塊 -->
           <g stroke="#2a1002" stroke-width="1.4">
             <path d="M 60 95 q -10 -25 15 -32 q 25 -3 28 18 q 0 18 -16 24 q -22 4 -27 -10 z" fill="url(#ssCoat)"/>
             <path d="M 60 95 q -10 -25 15 -32 q 25 -3 28 18 q 0 18 -16 24 q -22 4 -27 -10 z" fill="url(#ssDeep)"/>
@@ -2178,7 +2114,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <path d="M 130 130 q -10 -16 14 -22 q 22 -3 26 12 q 0 14 -18 18 q -16 0 -22 -8 z" fill="url(#ssCoat)"/>
             <path d="M 130 130 q -10 -16 14 -22 q 22 -3 26 12 q 0 14 -18 18 q -16 0 -22 -8 z" fill="url(#ssDeep)"/>
           </g>
-          <!-- 鱗片麵衣紋理（深點） -->
           <g fill="#2a1002" opacity=".75">
             <circle cx="78" cy="74" r="1.5"/><circle cx="92" cy="68" r="1.7"/><circle cx="86" cy="84" r="1.4"/>
             <circle cx="125" cy="60" r="1.5"/><circle cx="138" cy="68" r="1.7"/><circle cx="118" cy="80" r="1.6"/>
@@ -2187,7 +2122,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle cx="148" cy="118" r="1.6"/><circle cx="160" cy="128" r="1.7"/>
             <circle cx="73" cy="92" r="1.3"/><circle cx="142" cy="82" r="1.3"/>
           </g>
-          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="78" cy="72" rx="3" ry="1.8" transform="rotate(-15 78 72)"/>
             <ellipse class="sparkle s2" cx="125" cy="62" rx="3.2" ry="1.8" transform="rotate(10 125 62)"/>
@@ -2196,19 +2130,16 @@ function drawStarchTree(svgId, modified, stage, mode){
             <ellipse class="sparkle" cx="148" cy="120" rx="3" ry="1.8" transform="rotate(15 148 120)" style="animation-delay:1.2s"/>
           </g>
         </g>
-        <!-- 九層塔（搖擺） -->
         <g fill="url(#basilGrad)" stroke="#1a3a08" stroke-width=".6">
           <path class="leaf-sway" d="M 50 122 q 6 -16 22 -12 q 4 4 4 8 q -2 12 -22 10 q -6 -2 -4 -6 z"/>
           <path class="leaf-sway l2" d="M 175 70 q 14 -12 24 -2 q 2 6 -2 10 q -10 8 -22 0 q -4 -4 0 -8 z"/>
           <path class="leaf-sway l3" d="M 165 148 q 14 -10 20 2 q 0 6 -4 8 q -10 4 -18 -4 q -2 -3 2 -6 z"/>
-          <!-- 葉脈 -->
           <g stroke="#1a3a08" stroke-width=".6" fill="none" opacity=".7">
             <path d="M 53 120 q 10 -6 20 -8"/>
             <path d="M 178 76 q 8 -2 18 -4"/>
             <path d="M 168 150 q 7 -2 15 -4"/>
           </g>
         </g>
-        <!-- 椒鹽落下 -->
         <g fill="#fff8d5" opacity=".85">
           <circle class="salt-fall" cx="80" cy="100" r=".9"/>
           <circle class="salt-fall s2" cx="105" cy="92" r=".9"/>
@@ -2217,7 +2148,6 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s5" cx="98" cy="140" r=".9"/>
           <circle class="salt-fall s2" cx="155" cy="138" r=".9"/>
         </g>
-        <!-- 起鍋油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="50" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2"/>
@@ -2269,15 +2199,12 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
-        <!-- 紙袋 -->
         <path d="M 60 110 L 70 188 L 170 188 L 180 110 Z" fill="url(#twBag)" stroke="#8a6a35" stroke-width="1.2"/>
         <path d="M 60 110 L 70 188 L 170 188 L 180 110 Z" fill="url(#twBagShade)"/>
         <path d="M 60 110 L 180 110" stroke="#8a6a35" stroke-width="1"/>
         <g class="breathe" filter="url(#twShadow)">
-          <!-- 較粗的薯條 (8 條) -->
           <g stroke="#3a1804" stroke-width="1.3">
             <rect x="68" y="40" width="14" height="105" rx="5" fill="url(#twFry)" transform="rotate(-8 75 95)"/>
             <rect x="86" y="32" width="14" height="120" rx="5" fill="url(#twFry)" transform="rotate(-3 93 95)"/>
@@ -2288,7 +2215,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="148" y="60" width="13" height="92" rx="5" fill="url(#twFry)" opacity=".88" transform="rotate(12 155 100)"/>
             <rect x="110" y="50" width="13" height="100" rx="5" fill="url(#twFry)" opacity=".82" transform="rotate(-2 116 100)"/>
           </g>
-          <!-- 立體陰影條（兩側暗色） -->
           <g>
             <rect x="68" y="40" width="14" height="105" rx="5" fill="url(#twFryDeep)" transform="rotate(-8 75 95)" opacity=".6"/>
             <rect x="86" y="32" width="14" height="120" rx="5" fill="url(#twFryDeep)" transform="rotate(-3 93 95)" opacity=".55"/>
@@ -2296,7 +2222,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="122" y="32" width="14" height="120" rx="5" fill="url(#twFryDeep)" transform="rotate(3 129 95)" opacity=".55"/>
             <rect x="140" y="40" width="14" height="105" rx="5" fill="url(#twFryDeep)" transform="rotate(8 147 95)" opacity=".6"/>
           </g>
-          <!-- 油亮反光條 -->
           <g fill="#fff8d5" opacity=".55">
             <rect x="71" y="55" width="2.2" height="80" transform="rotate(-8 72 95)"/>
             <rect x="89" y="40" width="2.2" height="100" transform="rotate(-3 90 90)"/>
@@ -2304,7 +2229,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="125" y="40" width="2.2" height="100" transform="rotate(3 126 90)"/>
             <rect x="143" y="55" width="2.2" height="80" transform="rotate(8 144 95)"/>
           </g>
-          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <circle class="sparkle" cx="76" cy="60" r="1.6" transform="rotate(-8 76 60)"/>
             <circle class="sparkle s2" cx="111" cy="50" r="1.8"/>
@@ -2313,7 +2237,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle class="sparkle" cx="128" cy="100" r="1.6" style="animation-delay:1.4s"/>
           </g>
         </g>
-        <!-- 椒鹽撒粉（落下） -->
         <g fill="#7a3a07">
           <circle class="salt-fall" cx="92" cy="62" r="1"/>
           <circle class="salt-fall s2" cx="108" cy="55" r="1"/>
@@ -2322,7 +2245,6 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s5" cx="100" cy="95" r="1"/>
           <circle class="salt-fall s2" cx="135" cy="90" r="1"/>
         </g>
-        <!-- 起鍋油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="55" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2"/>
@@ -2378,17 +2300,13 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.3)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
-        <!-- 紅色薯條盒 -->
         <path d="M 60 110 L 75 188 L 165 188 L 180 110 Z" fill="url(#redBox)" stroke="#5a0905" stroke-width="1.2"/>
         <path d="M 60 110 L 75 188 L 165 188 L 180 110 Z" fill="url(#redBoxShade)"/>
-        <!-- 黃色 M 形帶 -->
         <path d="M 60 110 L 180 110 L 175 130 L 65 130 Z" fill="url(#yellowBand)" stroke="#a87000" stroke-width=".8"/>
         <path d="M 95 115 q 10 -10 20 0 q 10 -10 20 0 L 130 130 L 110 130 Z" fill="#cc1c10" stroke="#5a0905" stroke-width=".8"/>
         <g class="breathe" filter="url(#usShadow)">
-          <!-- 細薯條 -->
           <g stroke="#3a1804" stroke-width=".9">
             <rect x="76" y="38" width="6" height="80" rx="2" fill="url(#usFry)" transform="rotate(-12 79 80)"/>
             <rect x="86" y="28" width="6" height="92" rx="2" fill="url(#usFry)" transform="rotate(-7 89 75)"/>
@@ -2403,7 +2321,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="100" y="34" width="5" height="86" rx="2" fill="url(#usFry)" opacity=".82"/>
             <rect x="130" y="34" width="5" height="86" rx="2" fill="url(#usFry)" opacity=".82" transform="rotate(4 132 78)"/>
           </g>
-          <!-- 立體陰影條 -->
           <g>
             <rect x="76" y="38" width="6" height="80" rx="2" fill="url(#usFryDeep)" transform="rotate(-12 79 80)" opacity=".6"/>
             <rect x="86" y="28" width="6" height="92" rx="2" fill="url(#usFryDeep)" transform="rotate(-7 89 75)" opacity=".55"/>
@@ -2414,7 +2331,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="136" y="30" width="6" height="92" rx="2" fill="url(#usFryDeep)" transform="rotate(9 139 76)" opacity=".6"/>
             <rect x="146" y="40" width="6" height="80" rx="2" fill="url(#usFryDeep)" transform="rotate(13 149 80)" opacity=".6"/>
           </g>
-          <!-- 油亮反光細條 -->
           <g fill="#fff8d5" opacity=".7">
             <rect x="78" y="50" width="1.2" height="60" transform="rotate(-12 78 80)"/>
             <rect x="98" y="32" width="1.2" height="80" transform="rotate(-3 98 70)"/>
@@ -2422,7 +2338,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="118" y="32" width="1.2" height="80" transform="rotate(2 118 70)"/>
             <rect x="138" y="44" width="1.2" height="64" transform="rotate(9 138 76)"/>
           </g>
-          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <circle class="sparkle" cx="86" cy="50" r="1.5"/>
             <circle class="sparkle s2" cx="110" cy="40" r="1.6"/>
@@ -2431,7 +2346,6 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle class="sparkle" cx="125" cy="92" r="1.4" style="animation-delay:1.6s"/>
           </g>
         </g>
-        <!-- 鹽粒落下 -->
         <g fill="#fff" opacity=".95">
           <circle class="salt-fall" cx="92" cy="40" r=".9"/>
           <circle class="salt-fall s2" cx="115" cy="32" r=".9"/>
@@ -2439,7 +2353,6 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s4" cx="105" cy="55" r=".8"/>
           <circle class="salt-fall s5" cx="128" cy="58" r=".8"/>
         </g>
-        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="50" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="200" cy="160" r="2"/>
@@ -2501,9 +2414,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="186" rx="105" ry="10" fill="rgba(0,0,0,.28)"/>
-        <!-- 竹編盤 -->
         <ellipse cx="120" cy="160" rx="105" ry="22" fill="url(#plate)" stroke="#5a4a20" stroke-width="1.2"/>
         <ellipse cx="120" cy="156" rx="98" ry="18" fill="url(#plateInner)" stroke="#8a7a50" stroke-width="1"/>
         <g stroke="#a89868" stroke-width=".7" fill="none" opacity=".7">
@@ -2513,14 +2424,11 @@ function drawStarchTree(svgId, modified, stage, mode){
           <line x1="55" y1="142" x2="185" y2="142"/>
         </g>
         <g class="breathe" filter="url(#tenShadow)">
-          <!-- 天婦羅蝦 -->
           <g transform="translate(120 110)">
-            <!-- 麵衣（透視花瓣） -->
             <path d="M -50 30 Q -55 -10 -30 -25 Q 0 -38 30 -28 Q 55 -10 50 30 Q 50 45 0 45 Q -50 45 -50 30 Z"
                   fill="url(#tenCoat)" stroke="#3a1804" stroke-width="1.6"/>
             <path d="M -50 30 Q -55 -10 -30 -25 Q 0 -38 30 -28 Q 55 -10 50 30 Q 50 45 0 45 Q -50 45 -50 30 Z"
                   fill="url(#tenDeep)"/>
-            <!-- 花瓣狀外緣 -->
             <g fill="url(#tenCoat)" stroke="#3a1804" stroke-width="1.1">
               <circle cx="-48" cy="20" r="6.5"/>
               <circle cx="-42" cy="40" r="5.5"/>
@@ -2536,33 +2444,27 @@ function drawStarchTree(svgId, modified, stage, mode){
               <circle cx="-15" cy="-30" r="4.5"/>
               <circle cx="15" cy="-30" r="4.5"/>
             </g>
-            <!-- 麵衣紋理小斑點 -->
             <g fill="#3a1804" opacity=".55">
               <circle cx="-30" cy="0" r="1.3"/><circle cx="-10" cy="-10" r="1.2"/>
               <circle cx="15" cy="-5" r="1.3"/><circle cx="32" cy="8" r="1.2"/>
               <circle cx="-20" cy="20" r="1.3"/><circle cx="10" cy="22" r="1.2"/>
               <circle cx="28" cy="28" r="1.3"/><circle cx="-32" cy="30" r="1.2"/>
             </g>
-            <!-- 蝦尾露出 -->
             <path d="M -10 -30 Q -5 -45 0 -50 Q 5 -45 10 -30 Z" fill="url(#shrimp)" stroke="#5a0a05" stroke-width="1"/>
             <path d="M -4 -48 L 0 -56 M 0 -50 L 0 -58 M 4 -48 L 0 -56" stroke="#5a0a05" stroke-width="1" fill="none"/>
-            <!-- 蝦尾高光 -->
             <ellipse cx="0" cy="-40" rx="1.5" ry="3" fill="#fff" opacity=".55"/>
           </g>
-          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="92" cy="92" rx="3.5" ry="2"/>
             <ellipse class="sparkle s2" cx="125" cy="100" rx="3.5" ry="2"/>
             <ellipse class="sparkle s3" cx="155" cy="105" rx="3" ry="1.8"/>
             <ellipse class="sparkle s4" cx="105" cy="125" rx="3" ry="1.8"/>
           </g>
-          <!-- 移動油亮反光條 -->
           <g clip-path="url(#tenClip)">
             <rect class="shimmer-stripe" x="-60" y="70" width="40" height="100"
                   fill="url(#tenGloss)" transform="skewX(-22)" opacity=".5"/>
           </g>
         </g>
-        <!-- 點綴蔬菜 (青椒/茄子) -->
         <g filter="url(#tenShadow)">
           <ellipse cx="50" cy="135" rx="14" ry="10" fill="url(#tenCoat)" stroke="#3a1804" stroke-width="1.2"/>
           <ellipse cx="50" cy="135" rx="6" ry="3" fill="#5a8c3a"/>
@@ -2571,7 +2473,6 @@ function drawStarchTree(svgId, modified, stage, mode){
           <ellipse cx="190" cy="135" rx="5" ry="3" fill="#7a3a07"/>
           <ellipse cx="188" cy="132" rx="2" ry="1" fill="#fff" opacity=".5"/>
         </g>
-        <!-- 天かす 屑（小花瓣，飄動） -->
         <g fill="url(#tenCoat)" stroke="#3a1804" stroke-width=".5">
           <circle class="tenkasu" cx="35" cy="115" r="2.5"/>
           <circle class="tenkasu t2" cx="205" cy="118" r="2.2"/>
@@ -2580,7 +2481,6 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="tenkasu" cx="80" cy="148" r="1.5" style="animation-delay:1.5s"/>
           <circle class="tenkasu t3" cx="160" cy="148" r="1.7" style="animation-delay:.8s"/>
         </g>
-        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="30" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="210" cy="170" r="2"/>
@@ -2662,7 +2562,6 @@ function drawStarchTree(svgId, modified, stage, mode){
 
 <footer>
   <div>教材整理：Kiwi · 基於 20210621 S03 裹漿/裹粉澱粉 教材擴增。所有配方比例為業界常見區間，實際依配方目標微調。</div>
-  <div style="margin-top:6px">資料來源檔案：<a href="https://drive.google.com/file/d/1O9wt1wBEDQQj6q-A9HLLATCPO8xl89Eh/view?usp=drivesdk" target="_blank">20210621 S03裹漿裹粉澱粉.pptx</a></div>
 </footer>
 
 <script>
