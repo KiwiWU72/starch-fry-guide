@@ -364,6 +364,52 @@ table.data td.L{text-align:left}
   30%  { opacity: 1; }
   100% { transform: scale(1.4); opacity: 0; }
 }
+/* ====== 肌球蛋白溫度響應動畫 ====== */
+.myosin-stage{
+  background: linear-gradient(180deg, #fafaf0 0%, #ede4cc 100%);
+  border-radius: 12px; padding: 4px;
+  border: 1px solid var(--line);
+}
+.myosin-controls{
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: center; margin: 14px 0 0;
+}
+.myosin-btn{
+  border: 1.5px solid var(--line); background: #fff;
+  padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: var(--ink-soft);
+  transition: all .2s;
+}
+.myosin-btn:hover{ background: #fff7ea }
+.myosin-btn.on{ background: var(--accent); border-color: var(--accent); color: #fff }
+.myosin-btn.myo-auto{ background: var(--accent-3); border-color: var(--accent-3); color: #fff }
+.myosin-caption{
+  background: #fff7ea; border-left: 4px solid var(--accent);
+  padding: 14px 16px; border-radius: 6px; margin-top: 14px;
+  font-size: 14.5px; line-height: 1.7; min-height: 70px;
+}
+@keyframes myoFloat{
+  0%, 100%{ transform: translate(0, 0); }
+  50%    { transform: translate(0, -3px); }
+}
+.myo-mol.myo-float{ animation: myoFloat 3.5s ease-in-out infinite }
+@keyframes myoVibrate{
+  0%, 100%{ transform: translate(0, 0); }
+  25%   { transform: translate(.6px, -.6px); }
+  75%   { transform: translate(-.6px, .6px); }
+}
+.myo-mol.myo-vibrate{ animation: myoVibrate .22s linear infinite }
+@keyframes myoShiver{
+  0%, 100%{ transform: translate(0, 0); }
+  50%   { transform: translate(.4px, .3px); }
+}
+.myo-mol.myo-shiver{ animation: myoShiver .8s ease-in-out infinite }
+@keyframes myoPulseGlow{
+  0%, 100%{ opacity: .35 }
+  50%   { opacity: .7 }
+}
+.myo-glow{ animation: myoPulseGlow 1.6s ease-in-out infinite }
+
 .prod-info{min-width:0}
 .prod-tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px}
 .prod-tab{
@@ -425,7 +471,11 @@ blockquote.pull{
       <a href="#native">天然澱粉</a>
       <a href="#xlink">磷酸交聯</a>
       <a href="#acetyl">醋酸取代</a>
+      <a href="#oxidized">氧化澱粉</a>
       <a href="#compare">修飾前後比較</a>
+      <a href="#sugars">糖類矩陣</a>
+      <a href="#protein">蛋白質介面</a>
+      <a href="#doublefry">雙炸法</a>
       <a href="#formula">複配粉配方</a>
       <a href="#products">產品解析</a>
       <a href="#metrics">品質指標</a>
@@ -446,6 +496,7 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 1. 簡介 ============== -->
 <section class="block" id="intro">
   <div class="container">
     <h2><span class="num">01</span>三大裹漿體系與核心問題</h2>
@@ -479,6 +530,7 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 2. 油炸原理動畫 ============== -->
 <section class="block" id="fry">
   <div class="container">
     <h2><span class="num">02</span>油炸原理：水跑出來，油填進去，殼乾掉變酥</h2>
@@ -508,13 +560,18 @@ blockquote.pull{
             <stop offset="0%" stop-color="#e0f0ff"/><stop offset="100%" stop-color="#5fa8e0"/>
           </radialGradient>
         </defs>
+        <!-- 油溫標 -->
         <rect x="540" y="14" width="160" height="22" rx="11" fill="rgba(0,0,0,.3)"/>
         <text x="620" y="29" fill="#fff" font-size="13" text-anchor="middle">油溫 170–180 ℃</text>
 
+        <!-- 食物 -->
         <g id="fryFoodG" transform="translate(360,210)">
+          <!-- 肉本體 -->
           <ellipse cx="0" cy="0" rx="120" ry="78" fill="url(#meatGrad)"/>
+          <!-- 麵衣 (會切換) -->
           <g id="coatGroup">
             <ellipse id="coatEllipse" cx="0" cy="0" rx="135" ry="92" fill="url(#rawCoat)" opacity="0.92"/>
+            <!-- 階段 4 用的孔洞層 -->
             <g id="poresLayer" style="opacity:0; transition:opacity 1.2s">
               <circle cx="-80" cy="-30" r="5" fill="#3b1808"/>
               <circle cx="-50" cy="-55" r="6" fill="#3b1808"/>
@@ -535,17 +592,22 @@ blockquote.pull{
               <circle cx="0" cy="-25" r="5" fill="#3b1808"/>
               <circle cx="55" cy="-10" r="4" fill="#3b1808"/>
             </g>
+            <!-- 結殼亮邊（階段 3 開始顯示） -->
             <ellipse id="shellRing" cx="0" cy="0" rx="135" ry="92" fill="none" stroke="#3a1c08" stroke-width="0" />
           </g>
         </g>
 
+        <!-- 水分子層（從食物逸出） -->
         <g id="watersOut"></g>
+        <!-- 氣泡層 -->
         <g id="bubblesG"></g>
+        <!-- 蒸氣 -->
         <g id="steamG" opacity="0.7">
           <ellipse id="steam1" cx="200" cy="100" rx="40" ry="18" fill="#ffffff" opacity="0"/>
           <ellipse id="steam2" cx="500" cy="110" rx="50" ry="20" fill="#ffffff" opacity="0"/>
         </g>
 
+        <!-- 階段標籤 -->
         <g>
           <rect x="14" y="380" width="450" height="28" rx="8" fill="rgba(0,0,0,.45)"/>
           <text id="fryCaption" x="22" y="399" fill="#fff" font-size="14">步驟 1 · 入油：表面溫度從 20℃ 瞬升至 100℃，水分開始氣化</text>
@@ -560,6 +622,7 @@ blockquote.pull{
         <button class="btn" id="fryAuto">▶ 自動播放</button>
       </div>
 
+      <!-- 階段對照表（讓四階段差異看得超清楚） -->
       <div class="fry-grid">
         <div class="fry-mini" data-fry-mini="1">
           <div class="mini-label">1 · 入油</div>
@@ -660,10 +723,45 @@ blockquote.pull{
         <h3 style="margin-top:0; color:var(--accent-3)">客戶常聽到的「三大敵人」</h3>
         <ul>
           <li><b>吸油</b>：脫水不完全，孔洞被油填滿而非空氣。</li>
-          <li><b>脫殼</b>：麵衣與肉之間水氣過多 → 裂開。</li>
-          <li><b>回軟</b>：澱粉快速<span class="hl">老化（retrogradation）</span>重新吸水。</li>
+          <li><b>脫殼</b>：麵衣與肉之間水氣過多 → 蒸氣壓頂破界面而裂開。</li>
+          <li><b>回軟</b>：起鍋幾分鐘內，麵衣裡的<span class="hl">直鏈澱粉快速重結晶（短期老化）</span>＋<span class="hl">內部肉汁水氣外遷</span> — 兩股水重新填回麵衣孔洞，玻璃態變橡膠態。</li>
         </ul>
-        <p style="margin:6px 0 0; font-size:14px; color:var(--ink-soft)">這三件事全部可以用「修飾澱粉」去解決，下一段就進到分子層面。</p>
+        <details style="margin:8px 0 0; font-size:14px; color:var(--ink-soft)">
+          <summary style="cursor:pointer; color:var(--accent-3); font-weight:600">⚠️ 「回軟 = 澱粉吸水」是話術，真實機制反直覺</summary>
+          <div style="margin-top:8px; padding:12px; background:#fff7ea; border-left:3px solid var(--accent); border-radius:4px">
+            <b>關鍵釐清：澱粉老化本身是「擠水」，不是「吸水」。</b><br><br>
+
+            <b>① 糊化時的狀態（剛起鍋）：</b><br>
+            高溫下，直鏈澱粉 (Amylose) 的雙螺旋被熱能打開、從顆粒裡游離出來，呈現<b>無規則捲曲 (random coil)</b> 的鬆散構象。
+            鬆散的鏈條之間留下大量空隙（無定形區），這些空隙被水分子<b>以氫鍵「鬆鬆地抓住」</b>——
+            想像成一把打散的義大利麵泡在水裡，麵條和水都填滿整個容器，<b>水沒被緊緊鎖住，但也沒地方跑</b>。
+            <br><br>
+
+            <b>② 冷卻幾分鐘 → 直鏈互相纏繞成雙螺旋（短期老化）：</b><br>
+            溫度下降，分子熱運動降低 → 鬆散的直鏈鏈條開始<b>重新尋找最穩定的構象 = 雙螺旋 (double helix)</b>。
+            兩條直鏈靠近、平行排列、相互纏繞，形成<b>緻密的結晶區</b>。
+            <br><br>
+
+            <b>③ 為什麼水會被「擠」出來？(體積守恆 + 親和力消失)</b><br>
+            原本鬆散的構象佔據體積大、留有大量氫鍵位點給水分子停靠。
+            雙螺旋形成後，<b>原本朝外的羥基 (-OH) 變成朝內、彼此互相牽手</b>（鏈間 OH↔OH 氫鍵）→
+            水分子失去了原本的停靠點，也被新生成的緻密結構物理上擠出空隙。
+            <br>
+            ⚡ <b>這就是 Syneresis（析水）的本質</b>：澱粉「自己抓自己」取代「澱粉抓水」 → 水變成自由水滲出。
+            <br><br>
+
+            <b>類比：</b>把濕海綿用力擰乾。海綿（鬆散直鏈）原本均勻吸水；擰緊後（雙螺旋緻密化），水不是被海綿喝光，而是被結構壓縮後物理擠出 — 這就是分子層級正在發生的事。
+            <br><br>
+
+            <b>④ 對麵衣的後果：</b><br>
+            被擠出的水 + 內部肉芯外遷的水蒸氣，一起填回麵衣的微孔 → 結構濕潤、酥脆消失。
+            所以從「整個麵衣系統」看像是吸水，但分子層面是<b>水的再分布</b>，而非澱粉去抓水。
+            <br><br>
+
+            <b>結論：</b>回軟的兇手是「直鏈澱粉重結晶 + 水分再分布」，<b>不是支鏈澱粉</b>（支鏈是幾天到幾週的長期儲存硬化）。
+          </div>
+        </details>
+        <p style="margin:8px 0 0; font-size:14px; color:var(--ink-soft)">這三件事全部可以用「修飾澱粉」去解決，下一段就進到分子層面。</p>
       </div>
     </div>
 
@@ -678,6 +776,7 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 3. 天然澱粉 ============== -->
 <section class="block" id="native">
   <div class="container">
     <h2><span class="num">03</span>認識澱粉：直鏈 vs 支鏈、各源頭的比例差</h2>
@@ -696,10 +795,7 @@ blockquote.pull{
           <tr><td class="L">糯性玉米 Waxy corn</td><td>1%</td><td>99%</td><td class="L">極度蓬鬆、抗凍但易老化</td></tr>
         </tbody>
       </table>
-      <p class="note"><b>白話：</b>客人說「我要像日式炸蝦那樣蓬起來」→ 拉高馬鈴薯 + 蠟質玉米；說「我要像雞排那種半透明顆粒」→ 木薯粒粉；說「我要厚麵衣像 Popeyes」→ 小麥為主 + 玉米粉補色。</p>
-      <p class="note" style="background:#fff7ea; border:1px dashed #f0d9a8; padding:6px 10px; border-radius:8px; margin-top:6px">
-        <b>📝 資料修正：</b>原始 deck 中綠豆澱粉 48% / 42% 兩欄相加未滿 100%（屬筆誤），已依文獻校正為約 45% / 55%；豌豆澱粉因品種與分離方式不同，文獻範圍 35–55%（高直鏈品種可達 55%+）。
-      </p>
+      <p class="note"><b>白話：</b>客人說「我要像日式炸蝦那樣蓬起來」→ 拉高馬鈴薯 + 蠟質玉米；說「我要像雞排那種<b>立體鱗片顆粒、凸起酥脆</b>」→ 樹薯粒粉（粗顆粒）；說「我要厚麵衣像 Popeyes」→ 小麥為主 + 玉米粉補色。</p>
     </div>
 
     <div class="grid-2">
@@ -725,12 +821,270 @@ blockquote.pull{
           <li><b>冷凍解凍穩定性</b>（冷凍雞塊必備）</li>
           <li><b>成膜性 / 阻隔油</b>（降低吸油率）</li>
         </ul>
-        <blockquote class="pull">修飾 ≠ 加化學品。修飾 = <b>在分子上接幾個基團</b>，讓它更適應食品加工。</blockquote>
+        <blockquote class="pull">修飾 = <b>在分子上接幾個基團</b>（磷酸根、醋酸基、羧基等），讓澱粉在加工條件下保有想要的物理性質。</blockquote>
       </div>
+    </div>
+
+    <!-- ★ 補充：老化是雙面刃 -->
+    <div class="card" style="background:linear-gradient(135deg,#fff7ea 0%,#f3f6fa 100%); border-color:#d8c89a; margin-top:18px">
+      <h3 style="margin:0 0 8px; color:var(--accent)">🎯 澱粉老化是「雙面刃」：什麼時候是敵人、什麼時候是好朋友</h3>
+      <p style="margin:0 0 12px; font-size:15px; line-height:1.7">
+        前面講老化都把它當壞事 — <b>但老化（retrogradation）的好壞，<u>完全取決於體系含水量</u></b>。
+        在<b>低水分炸物</b>裡，<b>適度的直鏈澱粉重結晶 = 硬脆口感的來源</b>。下表把兩個方向講清楚：
+      </p>
+      <div style="overflow-x:auto">
+        <table class="data" style="font-size:14px">
+          <thead>
+            <tr>
+              <th>體系</th>
+              <th>含水量</th>
+              <th>老化的物理效應</th>
+              <th>感官</th>
+              <th class="L">代表產品</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fef3e6">
+              <td><b>高水分</b><br>(濕系統)</td>
+              <td>&gt; 30%</td>
+              <td>結晶區擠水 → <b>水填回基質</b> → 結構軟塌</td>
+              <td>變軟、潮、糊</td>
+              <td class="L">麵包心、年糕、米飯隔夜、布丁、湯圓</td>
+            </tr>
+            <tr style="background:#e8f4ff">
+              <td><b>低水分</b><br>(乾系統)</td>
+              <td>&lt; 15%</td>
+              <td>直鏈雙螺旋互鎖 → <b>剛性結晶區增多</b> → 結構密度↑、剪切阻力↑</td>
+              <td><b>硬脆、咔滋響</b></td>
+              <td class="L">米果、雙炸薯條、烘乾米菓、義大利麵 RS3、冷凍復熱炸物外殼</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0; font-size:14.5px; line-height:1.7">
+        <b>第一性原理：</b>結晶區的彈性模量 (Young's modulus) 比無定形區<b>高 ~10×</b>。
+        當體系沒有自由水可以滲入時，新生成的雙螺旋結晶等於在分子層級「插入鋼筋」 — 整體越脆、越硬、越響。
+        反之有水可填，結晶反而成為「水的黏結點」→ 變濕變軟。
+      </p>
+    </div>
+
+    <!-- 三個應用案例 -->
+    <div class="grid-3" style="margin-top:14px">
+      <div class="card" style="margin:0; background:#fff7ea; border-color:#f0d9a8">
+        <h4 style="margin:0 0 8px; color:var(--accent)">🍟 雙炸法 (Double Frying)</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0">
+          第一炸 (160℃ × 5 min) → <b>冷卻 30 min</b>（讓表層水分散逸 + <b>直鏈澱粉重結晶</b>） → 第二炸 (180℃ × 1.5 min) 急速脫水。
+          <br><br>
+          <b>科學：</b>第一炸後的冷卻期是<b>有意製造的「短期老化」</b>，剛好把外殼變剛硬。第二炸定型 → 麥當勞薯條、韓式炸雞、英國 fish & chips 都用這招。
+        </p>
+      </div>
+      <div class="card" style="margin:0; background:#fff7ea; border-color:#f0d9a8">
+        <h4 style="margin:0 0 8px; color:var(--accent)">🍘 米果 / 米菓</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0">
+          糯米炊蒸（糊化）→ <b>冷藏熟成 24–48 hr</b>（直鏈+部分支鏈重結晶）→ 切片乾燥 → 烤/炸。
+          <br><br>
+          <b>科學：</b>熟成這一步是核心。如果跳過直接烤，米果只會「酥」不會「脆」。冷藏老化讓直鏈纏出緻密結晶骨架，後續烤製把水脫光 → 「咔滋」聲音的物理來源。
+        </p>
+      </div>
+      <div class="card" style="margin:0; background:#fff7ea; border-color:#f0d9a8">
+        <h4 style="margin:0 0 8px; color:var(--accent)">🍝 抗性澱粉 RS3 (Resistant Starch Type 3)</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0">
+          煮過的義大利麵/米飯<b>冷藏後</b>，部分直鏈澱粉重結晶成 RS3。這種結晶酶解極慢 → 升糖指數降低、健康訴求賣點。
+          <br><br>
+          <b>科學：</b>同樣是直鏈雙螺旋老化，<b>對麵包是缺點，對糖尿病飲食是優點</b>。「隔夜飯」反而健康就是這個機制。
+        </p>
+      </div>
+    </div>
+
+    <!-- 加碼補充：直鏈比例光譜 + 糊化溫度 -->
+    <div class="grid-2" style="margin-top:14px">
+      <div class="card" style="margin:0">
+        <h4 style="margin:0 0 10px; color:var(--accent-3)">📏 直鏈/支鏈比例 = 口感光譜</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0 0 8px">
+          <b>直鏈%</b> 一個數字就能預判口感方向：
+        </p>
+        <div style="font-size:13.5px; line-height:1.9">
+          <div style="background:linear-gradient(90deg,#fff5d6 0%,#a8d8a8 50%,#5a3a18 100%); height:24px; border-radius:6px; position:relative; margin:6px 0 10px">
+            <div style="position:absolute; left:0; top:-2px; bottom:-2px; width:2px; background:#000"></div>
+            <div style="position:absolute; left:50%; top:-2px; bottom:-2px; width:2px; background:#000"></div>
+            <div style="position:absolute; right:0; top:-2px; bottom:-2px; width:2px; background:#000"></div>
+            <div style="position:absolute; left:0; top:26px; font-size:11px">0% (蠟質)</div>
+            <div style="position:absolute; left:50%; top:26px; font-size:11px; transform:translateX(-50%)">~28% (普通)</div>
+            <div style="position:absolute; right:0; top:26px; font-size:11px">70% (Hi-maize)</div>
+          </div>
+          <div style="margin-top:34px">
+            ・<b>0–10% 直鏈（蠟質玉米/糯米）</b>：極蓬鬆、Q彈、抗凍但<b>不耐久</b>（純支鏈長期老化）<br>
+            ・<b>20–30% 直鏈（一般玉米/小麥/木薯）</b>：平衡點，多數油炸粉的主力<br>
+            ・<b>40–55% 直鏈（豌豆/綠豆）</b>：成膜強、咬感硬脆，Clean label 首選<br>
+            ・<b>&gt;60% 直鏈（Hi-maize 高直鏈玉米）</b>：極硬、抗酶解、做 RS3 與健康訴求
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin:0">
+        <h4 style="margin:0 0 10px; color:var(--accent-3)">🌡️ 糊化溫度 + 顆粒大小 — 油炸動力學的另一張臉</h4>
+        <table class="data" style="font-size:13px">
+          <thead><tr><th>來源</th><th>糊化溫度</th><th>顆粒</th><th class="L">油炸時的行為</th></tr></thead>
+          <tbody>
+            <tr><td>馬鈴薯</td><td>58–65℃</td><td>大 (15–100 μm)</td><td class="L">最早糊化，蓬發最快</td></tr>
+            <tr><td>木薯</td><td>58–70℃</td><td>中 (5–35 μm)</td><td class="L">透明感強，Q 彈</td></tr>
+            <tr><td>小麥</td><td>52–64℃</td><td>雙峰 (2–35 μm)</td><td class="L">早糊化部分先成膜</td></tr>
+            <tr><td>玉米</td><td>62–72℃</td><td>小 (5–25 μm)</td><td class="L">糊化偏慢，上色快</td></tr>
+            <tr><td>米</td><td>68–78℃</td><td>極小 (3–8 μm)</td><td class="L">糊化最慢、結構最緻密</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:8px">
+          <b>實務：</b>炸物前 30 秒外殼能不能定型，看的就是<b>「最低糊化溫度的那支」澱粉先成膜</b>。
+          想要快速定型 → 加馬鈴薯/小麥；想要慢糊化做緻密內芯 → 加米/玉米。
+        </p>
+      </div>
+    </div>
+
+    <!-- 預糊化 + 損傷澱粉 -->
+    <div class="card" style="margin-top:14px; background:#f3f6fa; border-color:#a8c0d8">
+      <h4 style="margin:0 0 8px; color:var(--accent-3)">🧪 兩個常被忽略的「澱粉狀態」</h4>
+      <div class="grid-2" style="gap:14px">
+        <div>
+          <b>預糊化澱粉 (Pre-gelatinized Starch)</b><br>
+          <span style="font-size:13.5px; color:var(--ink-soft); line-height:1.6">
+            生澱粉先在熱滾筒（drum dryer）糊化後再乾燥粉碎 → <b>冷水即可溶</b>。
+            天婦羅麵糊用它就是為了「冰水拌一下就好，不用加熱、不會出筋」。
+            缺點：吸水量大、做厚漿易發黏。
+          </span>
+        </div>
+        <div>
+          <b>損傷澱粉 (Damaged Starch)</b><br>
+          <span style="font-size:13.5px; color:var(--ink-soft); line-height:1.6">
+            研磨小麥/玉米時，物理剪切會把部分澱粉粒打破 → 室溫下就吸水膨脹 (~3×)。
+            高損傷澱粉的麵粉 → 麵糊吸水率高、糊化提前 → <b>炸物易上色但易吸油</b>。
+            麵粉廠規格中 <b>15–25 UCD</b> 是炸粉的甜蜜區間 — 詳見下方完整解析。
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ UCD 完整技術段 -->
+    <div class="card" style="margin-top:14px; background:linear-gradient(135deg,#f7eddb 0%,#fdf3e0 100%); border-color:#d8b96a">
+      <h3 style="margin:0 0 10px; color:#8a5a00">📐 UCD 損傷澱粉指標：炸粉麵糊穩定性的隱形變數</h3>
+      <p style="margin:0 0 14px; font-size:15px; line-height:1.7">
+        <b>UCD（Unité Chopin Dubois，蕭邦-杜布瓦單位）</b>是衡量麵粉中「損傷澱粉」含量的<b>國際標準單位</b>。
+        對炸粉 R&D 來說，UCD 是<b>麵糊冷水穩定性</b>的核心指標 — 它直接決定「掛漿掛不掛得住、炸出來會不會吸油」。
+      </p>
+
+      <div class="grid-2" style="gap:14px; margin-bottom:14px">
+        <div style="background:#fff; border-radius:8px; padding:14px; border:1px solid #e7d9b0">
+          <h4 style="margin:0 0 8px; color:var(--accent-3)">① 什麼是「損傷澱粉」？</h4>
+          <p style="font-size:14px; line-height:1.7; margin:0">
+            小麥在<b>輥磨機 (Roller mill)</b> 中受強剪切與擠壓，部分澱粉顆粒的天然<b>同心晶體層 (alternating amorphous/crystalline shells)</b> 被打破或擦傷。
+            <br><br>
+            <b>對照：</b><br>
+            ・<b>完整澱粉粒</b>：像防水氣球，冷水吸水量 <b>~0.3×</b> 自重，需 ≥60℃ 才糊化<br>
+            ・<b>損傷澱粉</b>：晶體破壞、內部羥基暴露，<b>冷水即吸 ~3× 自重</b>，且極易被 α-amylase 分解
+          </p>
+        </div>
+        <div style="background:#fff; border-radius:8px; padding:14px; border:1px solid #e7d9b0">
+          <h4 style="margin:0 0 8px; color:var(--accent-3)">② UCD 怎麼測？(SDmatic)</h4>
+          <p style="font-size:14px; line-height:1.7; margin:0">
+            業界標準儀器是法國 <b>Chopin Technologies SDmatic</b>。
+            原理：損傷澱粉極易吸碘 (I₂) → 儀器把麵粉樣品丟進稀碘溶液，量測<b>碘被吸收的速度與總量</b> → 換算成 UCD 數值。
+            <br><br>
+            <b>數值越大 = 被打破的顆粒越多。</b>
+            其他國家也用 AACC 76-31 (酶法) 或 Megazyme 檢測套組，但結果都可換算回 UCD。
+          </p>
+        </div>
+      </div>
+
+      <h4 style="margin:14px 0 8px; color:var(--accent)">③ 三段 UCD 區間：油炸粉的「甜蜜區間」為何是 15–25</h4>
+      <div style="overflow-x:auto">
+        <table class="data" style="font-size:13.5px">
+          <thead>
+            <tr>
+              <th>UCD 區間</th>
+              <th>麵糊狀態</th>
+              <th>油炸表現</th>
+              <th class="L">R&D 物理機制</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fff0e6">
+              <td><b>&lt; 15</b><br>(損傷太少)</td>
+              <td>太稀<br>易滴落</td>
+              <td>掛漿差、靜置分層</td>
+              <td class="L">冷水建立不出初始黏度 → 麵糊從肉表面滑落，且粉體沉澱（無懸浮力）。需多加增稠劑補救（成本上升）。</td>
+            </tr>
+            <tr style="background:#e6f4d6">
+              <td><b>15–25</b><br>✅ <b>黃金區間</b></td>
+              <td>完美懸浮<br>厚薄適中</td>
+              <td>外殼酥脆、低吸油</td>
+              <td class="L">冷水吸水率剛好讓澱粉<b>部分膨潤但不糊化</b>，建立微黏性懸浮系統。調味料、蛋白質、增稠劑都能均勻分散。</td>
+            </tr>
+            <tr style="background:#fde8e2">
+              <td><b>&gt; 25</b><br>(損傷過多)</td>
+              <td>太稠<br>發黏</td>
+              <td>外焦內生、超吸油</td>
+              <td class="L">冷水階段就把水「吸光」 → 麵糊發黏。油炸時過度吸水的澱粉脫水困難 → <b>吸油率飆升</b>，且過早糊化導致<b>外殼上色快但內部沒熟</b>。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#fff; border-left:4px solid var(--accent); border-radius:6px; padding:14px 16px; margin-top:14px">
+        <b style="color:var(--accent)">💼 業務話術：用「UCD 降維打擊」連鎖客戶</b>
+        <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+          當對方抱怨：「為什麼換了一批麵粉，麵糊突然變很稠、要多加水？而且炸出來變得好油？」
+          <br><br>
+          這時候不要先談蛋白質筋度（多數人會猜這個），直接降維打擊：
+          <br>
+          <span style="background:#fff7ea; padding:10px 12px; border-radius:6px; display:block; margin-top:8px; font-style:italic">
+            「這通常不是麵粉筋度的問題，而是這批貨的<b>損傷澱粉 (UCD) 偏高</b>了 — 麵粉廠的研磨輥間隙跑掉，澱粉破裂過多。
+            高 UCD 會在冷水階段把水吸光，導致麵糊發黏、炸物吸油率飆升。
+            <br><br>
+            我們公司的複配粉設計時，會要求基底麵粉的 <b>UCD 嚴格控制在 15–25 的甜蜜區間</b>，確保您門市 SOP 不會因為麵粉批次而一直改加水量。」
+          </span>
+        </p>
+        <p style="margin:10px 0 0; font-size:14px; color:var(--ink-soft)">
+          <b>追擊問句：</b>「您要不要我們提供 SDmatic 檢測規格給您的麵粉供應商？這樣您的 QC 就能直接卡 UCD 上下限，不用再靠人工試麵糊。」 → 這通常會讓對方把你升級為「技術夥伴」而不是供應商。
+        </p>
+      </div>
+
+      <details class="tech" style="margin-top:14px">
+        <summary>🔬 技術層：UCD 與其他指標的換算 + 損傷澱粉的酵素學影響</summary>
+        <div class="body" style="line-height:1.8">
+          <b>單位換算（粗略）：</b><br>
+          ・1 UCD ≈ <b>0.5–0.6%</b> 損傷澱粉（基於 AACC 76-31 酶法）<br>
+          ・15–25 UCD ≈ 損傷澱粉佔總澱粉 <b>7–15%</b>（典型小麥粉）<br>
+          ・&gt; 30 UCD（&gt;18%）即進入「過度損傷」 — 通常是輥磨機間隙設定錯誤或硬麥磨成軟麥粉的訊號<br>
+          <br>
+          <b>對酵素活性的影響：</b><br>
+          α-amylase 對損傷澱粉的水解速率比對天然澱粉粒<b>高 ~20×</b>。所以高 UCD 麵粉在發酵系統（麵包、油條）中糖化更快、上色更快，但對<b>炸粉這種「短時間高溫」系統反而是負擔</b> — 因為糖化釋出的還原糖會讓 Maillard 過快、外殼焦化。<br>
+          <br>
+          <b>不同麵粉的 UCD 典型範圍：</b><br>
+          ・低筋粉（蛋糕用）：8–15 UCD（軟麥、輥磨溫和）<br>
+          ・中筋粉（家用 / 一般炸粉基底）：15–22 UCD ✅<br>
+          ・高筋粉（麵包用 / 厚麵衣炸雞）：18–25 UCD<br>
+          ・全麥粉：25–35 UCD（外皮+胚芽額外貢獻）<br>
+          <br>
+          <b>QC 建議：</b>炸粉廠進貨應要求供應商提供<b>每批次 SDmatic 報告</b>，並在合約 QC 條款中寫明 UCD 上下限。這比看灰分、蛋白質、水分都更直接反映麵糊行為。
+        </div>
+      </details>
+    </div>
+
+    <div style="background:#f7eddb; border:1px solid #d8b96a; border-left:4px solid var(--accent-2); border-radius:6px; padding:14px 16px; margin-top:14px">
+      <b style="color:#8a5a00">💼 業務口袋題：客戶說「我要『脆但不硬』」</b>
+      <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+        這是兩個不同的物理量：
+        <br>
+        ・<b>「脆」</b>= 結構在小應變下迅速斷裂（依賴<b>剛性</b> + <b>多孔隙</b>）→ 直鏈澱粉重結晶 + 膨發劑<br>
+        ・<b>「硬」</b>= 整體變形阻力高（依賴<b>密度</b>）→ 過度老化或低孔隙
+        <br><br>
+        <span class="hl"><b>解法：</b>升高直鏈比例（綠豆/豌豆 + 米粉混合）讓結晶區「分散」，搭配 SAPP+小蘇打做出微孔，就能「脆而不硬」</span>。
+        如果客戶炸雞「脆但太硬咬不動」 → 多半是直鏈過高 + 孔隙不足，要把蠟質玉米拉回 5–8% 來緩衝。
+      </p>
     </div>
   </div>
 </section>
 
+<!-- ============== 4. 磷酸交聯 ============== -->
 <section class="block" id="xlink">
   <div class="container">
     <h2><span class="num">04</span>磷酸交聯 (Phosphate Cross-link)：把鬆散的繩子綁成網</h2>
@@ -743,6 +1097,7 @@ blockquote.pull{
           <defs>
             <radialGradient id="glu1" cx="40%" cy="40%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#5a8c3a"/></radialGradient>
           </defs>
+          <!-- 三條鬆散的澱粉鏈，會「呼吸」式來回擺動 -->
           <g id="nativeChain" stroke="#5a8c3a" stroke-width="2" fill="url(#glu1)">
             <g class="chain c1">
               <path d="M 20 60 Q 90 40 160 60 Q 230 80 320 50" fill="none" stroke-dasharray="4 3"/>
@@ -783,6 +1138,7 @@ blockquote.pull{
             <circle cx="18" cy="195" r="9"/><circle cx="95" cy="195" r="9"/><circle cx="170" cy="195" r="9"/>
             <circle cx="240" cy="195" r="9"/><circle cx="325" cy="195" r="9"/>
           </g>
+          <!-- 磷酸交聯橋，動畫式淡入 -->
           <g id="xlinks" stroke="#c9472b" stroke-width="2.5" stroke-dasharray="2 2">
             <line x1="90" y1="60" x2="100" y2="130" class="xl"/>
             <line x1="100" y1="130" x2="95" y2="195" class="xl"/>
@@ -830,6 +1186,7 @@ blockquote.pull{
       <p class="note" style="margin-top:10px"><b>觀察重點：</b>天然澱粉黏度先衝高再迅速崩解（chains 散開）；磷酸交聯澱粉黏度上升較慢但<b class="hl">持續穩定</b>，這就是它在罐頭、湯品、長時間炸製被廣泛使用的原因。</p>
     </div>
 
+    <!-- 澱粉老化樹狀圖（支鏈澱粉 amylopectin cluster model） -->
     <div class="card">
       <h3 style="margin-top:0">🌳 澱粉老化樹狀圖（Retrogradation Tree Model）</h3>
       <p style="margin:0 0 10px; color:var(--ink-soft)">
@@ -899,6 +1256,7 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 5. 醋酸取代 ============== -->
 <section class="block" id="acetyl">
   <div class="container">
     <h2><span class="num">05</span>醋酸取代 (Acetylation)：把會抱團的手套住，避免老化</h2>
@@ -908,20 +1266,25 @@ blockquote.pull{
       <div class="mol-card">
         <h4>修飾前 · 天然澱粉的 OH 群</h4>
         <svg class="mol-svg" viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+          <!-- 上方：游離直鏈澱粉 (amylose) — 紅色 -->
           <g stroke="#9c2f1a" stroke-width="2" fill="#fff">
             <path d="M 30 90 Q 110 70 190 90 Q 270 110 340 90" fill="none"/>
             <circle cx="30" cy="90" r="8"/><circle cx="110" cy="78" r="8"/><circle cx="190" cy="90" r="8"/><circle cx="270" cy="105" r="8"/><circle cx="340" cy="92" r="8"/>
           </g>
+          <!-- 下方：支鏈澱粉外側 A-chain — 綠色 -->
           <g stroke="#5a8c3a" stroke-width="2" fill="#fff">
             <path d="M 30 170 Q 110 150 190 170 Q 270 190 340 170" fill="none"/>
             <circle cx="30" cy="170" r="8"/><circle cx="110" cy="158" r="8"/><circle cx="190" cy="170" r="8"/><circle cx="270" cy="185" r="8"/><circle cx="340" cy="172" r="8"/>
           </g>
+          <!-- 標籤 -->
           <text x="345" y="92" font-size="10" fill="#9c2f1a" font-weight="700" text-anchor="end">直鏈 amylose</text>
           <text x="345" y="186" font-size="10" fill="#5a8c3a" font-weight="700" text-anchor="end">支鏈 A-chain</text>
+          <!-- OH 群 -->
           <g font-size="11" font-weight="700" text-anchor="middle">
             <text x="110" y="60" fill="#9c2f1a">OH</text><text x="190" y="72" fill="#9c2f1a">OH</text><text x="270" y="88" fill="#9c2f1a">OH</text>
             <text x="110" y="200" fill="#5a8c3a">OH</text><text x="190" y="210" fill="#5a8c3a">OH</text><text x="270" y="222" fill="#5a8c3a">OH</text>
           </g>
+          <!-- 氫鍵（會閃爍動畫）— 跨「直鏈↔支鏈」與「同類間」 -->
           <g class="hbond" stroke="#c9472b" stroke-width="1.5" stroke-dasharray="3 3">
             <line x1="110" y1="65" x2="110" y2="195"/>
             <line x1="190" y1="76" x2="190" y2="206"/>
@@ -935,6 +1298,7 @@ blockquote.pull{
       <div class="mol-card">
         <h4>修飾後 · 醋酸取代澱粉 (Acetylated Starch)</h4>
         <svg class="mol-svg" viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+          <!-- 上方仍為直鏈澱粉、下方仍為支鏈 A-chain，但都被 OAc 阻擋 -->
           <g stroke="#9c2f1a" stroke-width="2" fill="#fff" opacity="0.55">
             <path d="M 30 90 Q 110 70 190 90 Q 270 110 340 90" fill="none"/>
             <circle cx="30" cy="90" r="8"/><circle cx="110" cy="78" r="8"/><circle cx="190" cy="90" r="8"/><circle cx="270" cy="105" r="8"/><circle cx="340" cy="92" r="8"/>
@@ -945,6 +1309,7 @@ blockquote.pull{
           </g>
           <text x="345" y="92" font-size="10" fill="#9c2f1a" font-weight="700" text-anchor="end">直鏈 amylose</text>
           <text x="345" y="186" font-size="10" fill="#5a8c3a" font-weight="700" text-anchor="end">支鏈 A-chain</text>
+          <!-- 醋酸基 (用較大方塊表示體積大) -->
           <g class="acetyl">
             <g transform="translate(110,55)">
               <rect x="-14" y="-10" width="28" height="20" rx="4" fill="#d89a38" stroke="#7a5b18"/>
@@ -1003,6 +1368,7 @@ blockquote.pull{
       </div>
     </div>
 
+    <!-- 醋酸取代版 老化樹狀圖 -->
     <div class="card">
       <h3 style="margin-top:0">🌳 澱粉老化結構圖（凍融場景對照）</h3>
       <p style="margin:0 0 10px; color:var(--ink-soft)">
@@ -1059,9 +1425,223 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 6. 氧化澱粉 ============== -->
+<section class="block" id="oxidized">
+  <div class="container">
+    <h2><span class="num">06</span>氧化澱粉 (Oxidized Starch)：用「斷鏈+羧基化」打造極致薄脆</h2>
+    <p class="lede">
+      磷酸交聯讓澱粉<b>變強</b>、醋酸取代讓澱粉<b>不老化</b> — 那麼想做出「<b>薄、脆、亮、低吸油</b>」的外殼呢？答案是<b>氧化澱粉 (E1404)</b>。
+      氧化反應同時做兩件事：<b>把長鏈剪短</b>（降黏）+ <b>在分子上接 -COOH 與 -C=O</b>（增加親水但低糊化能力）→ 整體效果是「黏度低、成膜強、不易回糊」 — 正是<b>裹漿薄脆</b>的物理條件。
+    </p>
+
+    <!-- 反應機制圖示卡 -->
+    <div class="card" style="background:linear-gradient(135deg,#fff 0%,#f0f5fa 100%); border-color:#a8c0d8">
+      <h3 style="margin:0 0 10px; color:var(--accent-3)">⚗️ 氧化機制：NaClO 在 C2/C3 與 C6 位下手</h3>
+      <div class="grid-2" style="gap:18px; align-items:center">
+        <div>
+          <p style="font-size:14.5px; line-height:1.8; margin:0">
+            最常見的氧化劑是<b>次氯酸鈉 (NaClO，俗稱漂白水級活性氯)</b>，在<b>鹼性 (pH 8–10)</b> 條件下對澱粉的羥基進行選擇性氧化：
+          </p>
+          <div style="background:#fff; border:1px solid #d8e0ec; border-radius:6px; padding:12px; margin:10px 0; font-family:monospace; font-size:13.5px; line-height:1.8">
+            <b>C6-OH</b>  → <b style="color:#c9472b">-CHO</b>  → <b style="color:#c9472b">-COOH</b><br>
+            <b>C2-OH</b>  → <b style="color:#c9472b">-C=O</b><br>
+            <b>C3-OH</b>  → <b style="color:#c9472b">-C=O</b>
+          </div>
+          <p style="font-size:14px; line-height:1.8; margin:8px 0 0; color:var(--ink-soft)">
+            同時 <b>1,4 糖苷鍵</b>會被部分切斷 → 平均分子量降至原始的 <b>1/3 ~ 1/10</b>。
+            <br>
+            羧基化程度用 <b>COOH%</b> 表達 — 食品級多落在 <b>0.1–1.5%</b>，FDA 21 CFR §172.892 上限為 <b>1.1% COOH</b>。
+          </p>
+        </div>
+
+        <!-- 視覺化：氧化前 vs 氧化後 -->
+        <div style="background:#fff; border:1px solid #d8e0ec; border-radius:8px; padding:14px">
+          <svg viewBox="0 0 320 220" style="width:100%; display:block">
+            <defs>
+              <radialGradient id="oxGlu" cx="40%" cy="40%">
+                <stop offset="0%" stop-color="#fff"/>
+                <stop offset="100%" stop-color="#5a8c3a"/>
+              </radialGradient>
+              <radialGradient id="oxGluOx" cx="40%" cy="40%">
+                <stop offset="0%" stop-color="#fff"/>
+                <stop offset="100%" stop-color="#3e6b9b"/>
+              </radialGradient>
+            </defs>
+            <!-- 上：原始長鏈 -->
+            <text x="10" y="18" font-size="12" fill="#5a3010" font-weight="700">天然 (長鏈，無羧基)</text>
+            <g transform="translate(15 38)">
+              <path d="M 0 10 Q 25 -2 50 10 T 100 10 T 150 10 T 200 10 T 250 10 T 290 10" fill="none" stroke="#5a8c3a" stroke-width="2"/>
+              <g fill="url(#oxGlu)" stroke="#5a8c3a" stroke-width="1">
+                <circle cx="0" cy="10" r="6"/><circle cx="50" cy="10" r="6"/><circle cx="100" cy="10" r="6"/>
+                <circle cx="150" cy="10" r="6"/><circle cx="200" cy="10" r="6"/><circle cx="250" cy="10" r="6"/>
+              </g>
+              <!-- OH groups -->
+              <g font-size="9" fill="#3a6b1f" text-anchor="middle">
+                <text x="0" y="-2">OH</text><text x="50" y="-2">OH</text><text x="100" y="-2">OH</text>
+                <text x="150" y="-2">OH</text><text x="200" y="-2">OH</text><text x="250" y="-2">OH</text>
+              </g>
+            </g>
+            <!-- 下：氧化後短鏈 -->
+            <text x="10" y="100" font-size="12" fill="#5a3010" font-weight="700">氧化後 (斷鏈 + COOH/C=O)</text>
+            <!-- 三段短鏈 -->
+            <g transform="translate(15 130)">
+              <path d="M 0 10 Q 15 0 30 10 Q 45 20 60 10" fill="none" stroke="#3e6b9b" stroke-width="2"/>
+              <g fill="url(#oxGluOx)" stroke="#3e6b9b" stroke-width="1">
+                <circle cx="0" cy="10" r="6"/><circle cx="30" cy="10" r="6"/><circle cx="60" cy="10" r="6"/>
+              </g>
+              <text x="0" y="-2" font-size="9" fill="#c9472b" text-anchor="middle" font-weight="700">COOH</text>
+              <text x="60" y="-2" font-size="9" fill="#c9472b" text-anchor="middle" font-weight="700">C=O</text>
+              <text x="75" y="14" font-size="14" fill="#888">⊘</text>
+            </g>
+            <g transform="translate(105 130)">
+              <path d="M 0 10 Q 20 -2 40 10 Q 60 22 80 10 Q 100 0 120 10" fill="none" stroke="#3e6b9b" stroke-width="2"/>
+              <g fill="url(#oxGluOx)" stroke="#3e6b9b" stroke-width="1">
+                <circle cx="0" cy="10" r="6"/><circle cx="40" cy="10" r="6"/><circle cx="80" cy="10" r="6"/><circle cx="120" cy="10" r="6"/>
+              </g>
+              <text x="40" y="-2" font-size="9" fill="#c9472b" text-anchor="middle" font-weight="700">COOH</text>
+              <text x="120" y="-2" font-size="9" fill="#c9472b" text-anchor="middle" font-weight="700">COOH</text>
+              <text x="135" y="14" font-size="14" fill="#888">⊘</text>
+            </g>
+            <g transform="translate(245 130)">
+              <path d="M 0 10 Q 15 0 30 10 Q 45 20 60 10" fill="none" stroke="#3e6b9b" stroke-width="2"/>
+              <g fill="url(#oxGluOx)" stroke="#3e6b9b" stroke-width="1">
+                <circle cx="0" cy="10" r="6"/><circle cx="30" cy="10" r="6"/><circle cx="60" cy="10" r="6"/>
+              </g>
+              <text x="30" y="-2" font-size="9" fill="#c9472b" text-anchor="middle" font-weight="700">C=O</text>
+            </g>
+            <!-- 標註箭頭 -->
+            <text x="160" y="200" text-anchor="middle" font-size="11" fill="var(--accent-3)" font-style="italic">⊘ = 1,4-糖苷鍵被切斷處</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三段氧化度比較表 -->
+    <div class="card">
+      <h3 style="margin:0 0 10px; color:var(--accent)">📊 低 / 中 / 高度氧化：對油炸口感的決定性影響</h3>
+      <p style="font-size:14.5px; line-height:1.7; margin:0 0 12px">
+        氧化程度由 <b>COOH%</b> 量化。下表把三段範圍對應到油炸體系的「酥脆度光譜」：
+      </p>
+      <div style="overflow-x:auto">
+        <table class="data" style="font-size:13px">
+          <thead>
+            <tr>
+              <th>氧化程度</th>
+              <th>COOH%</th>
+              <th>糊化峰黏度<br>(vs 天然)</th>
+              <th>成膜性</th>
+              <th>油炸口感</th>
+              <th class="L">適用產品 / 物理機制</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f3f6fa">
+              <td><b>低度氧化</b></td>
+              <td>0.1–0.4%</td>
+              <td>~80%</td>
+              <td>中</td>
+              <td>口感與天然接近<br>清澈感↑</td>
+              <td class="L">糖果工業、果凍、清澈醬汁。對油炸來說<b>差異不明顯</b>，主要是「不容易回糊」的賣點。</td>
+            </tr>
+            <tr style="background:#fff7ea">
+              <td><b>中度氧化</b><br>✅ 油炸甜蜜區</td>
+              <td>0.5–1.0%</td>
+              <td>~40%</td>
+              <td><b>高</b></td>
+              <td><b>薄脆、金黃<br>低吸油</b></td>
+              <td class="L">麥當勞薯條表層、日式天婦羅、可麗餅薄脆殼。<b>低糊化黏度 → 麵糊薄</b>；<b>羧基親水 → 形成緻密薄膜</b>，成膜後立即脫水定型，孔徑小、油不易滲入。</td>
+            </tr>
+            <tr style="background:#fff0e6">
+              <td><b>高度氧化</b><br>(Hyperoxidized)</td>
+              <td>1.0–1.5%</td>
+              <td>~15%</td>
+              <td>極高</td>
+              <td>玻璃脆<br>但易碎</td>
+              <td class="L">特殊脆殼、零食外膜（如蝦條外脆衣）。分子量太低 → 結構雖極脆但<b>剛性差、容易掉屑</b>，需與其他修飾澱粉複配補強。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#f3f6fa; border-left:4px solid var(--accent-3); border-radius:6px; padding:14px 16px; margin-top:14px">
+        <b style="color:var(--accent-3)">🔬 第一性原理：為什麼「中度氧化 = 薄脆」？</b>
+        <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+          氧化做了三件事，三件事都指向「薄脆」：
+          <br>
+          ① <b>長鏈被剪短</b> → 糊化時黏度大幅下降 → <b>麵糊可以做得很稀，附著層極薄 (50–100 μm)</b>，不像天然澱粉那樣黏厚。<br>
+          ② <b>羧基 (-COOH) 帶負電 → 鏈間互斥</b> → 成膜時分子排列緻密、孔徑小 → <b>水蒸氣可以從表面快速逸出，但油分子（極性低、體積大）無法逆向滲入</b>。<br>
+          ③ <b>還原端密度↑（C=O 與 -CHO）</b> → Maillard 啟動更早 → <b>外殼上色快，剛好搭配薄麵衣的快速定型</b>。
+          <br><br>
+          結合起來：<b>薄 + 不吸油 + 快上色 = 玻璃脆感</b>。這就是麥當勞薯條 7 分鐘保溫不軟、Lamb Weston / McCain 全球都用「中度氧化馬鈴薯澱粉薄膜噴塗」的科學基礎。
+        </p>
+      </div>
+    </div>
+
+    <!-- 與其他修飾澱粉的對比 / 複配建議 -->
+    <div class="card" style="background:#fff7ea; border-color:#f0d9a8">
+      <h3 style="margin:0 0 10px; color:var(--accent)">🧩 三大修飾的「分工 vs 複配」</h3>
+      <div style="overflow-x:auto">
+        <table class="data" style="font-size:13.5px">
+          <thead>
+            <tr>
+              <th>修飾類型</th>
+              <th>解決什麼問題</th>
+              <th>主要應用情境</th>
+              <th class="L">短板</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><b>磷酸交聯</b><br>(E1412/1414)</td><td>耐熱、耐酸、耐剪切</td><td class="L">罐頭、酸性醬汁、長時間蒸煮</td><td class="L">無法解決冷凍析水</td></tr>
+            <tr><td><b>醋酸取代</b><br>(E1420/1422)</td><td>抗老化、抗冷凍析水</td><td class="L">冷凍微波即食、冷藏甜點</td><td class="L">遇高剪切會掉黏</td></tr>
+            <tr style="background:#fff0d6"><td><b>氧化</b><br>(E1404)</td><td><b>低黏成膜、薄脆、低吸油</b></td><td class="L"><b>薯條、天婦羅、薄脆裹漿、麥片棒外膜</b></td><td class="L">分子量太小，結構不耐拉扯，常需複配</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:14.5px; line-height:1.8; margin:12px 0 0">
+        <b>複配實務範例：</b>
+        <br>
+        🍟 <b>麥當勞薯條表層</b>：中度氧化馬鈴薯澱粉 (主) + 醋酸取代玉米澱粉 (抗冷凍) → 噴塗 → 冷凍 → 復炸保溫不軟<br>
+        🍤 <b>日式天婦羅</b>：中度氧化玉米澱粉 (薄脆) + 預糊化馬鈴薯澱粉 (冷溶不出筋) → 麵糊冰水即用、入鍋花瓣狀<br>
+        🍗 <b>韓式炸雞二次裹漿</b>：天然樹薯粉 (粒粉感) + 中度氧化馬鈴薯澱粉 (二裹液降黏) → 雙重酥脆、薄膜不油膩
+      </p>
+    </div>
+
+    <div style="background:#f7eddb; border:1px solid #d8b96a; border-left:4px solid var(--accent-2); border-radius:6px; padding:14px 16px; margin-top:14px">
+      <b style="color:#8a5a00">💼 業務口袋題：客戶炸出來「外殼太厚、咬下去油膩」</b>
+      <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+        80% 是<b>麵糊太黏</b>導致掛漿過厚 → 油炸時水分逸出不全、油填進去。
+        <br>
+        <span class="hl"><b>解法：</b>在他配方裡把 8–15% 天然澱粉換成<b>中度氧化澱粉 (COOH 0.5–0.8%)</b></span>，麵糊黏度立刻降一半、外殼薄度減半、吸油率可從 18–22% 壓到 12–15%。
+        <br><br>
+        如果客戶在意 Clean label：可以推「<b>物理改性氧化澱粉</b>」(臭氧或紫外光氧化)，避開 NaClO 的化學標籤疑慮。
+      </p>
+    </div>
+
+    <details class="tech">
+      <summary>🔬 技術層：氧化反應的選擇性與副產物控管</summary>
+      <div class="body" style="line-height:1.8">
+        <b>反應條件：</b>NaClO 5–10% (基於乾澱粉)、pH 8–10、溫度 30–40℃、時間 1–4 小時。pH 是關鍵 — 過低會生成 Cl₂ 與 NaCl 副產物（殘氯安全性問題）；過高會降解過快、得到碎片。
+        <br><br>
+        <b>選擇性：</b>NaClO 對 <b>C6 一級羥基</b>的氧化選擇性最高（反應速率比 C2/C3 高 ~3×），所以中度氧化的羧基<b>多集中在 C6 位</b> — 這對成膜性特別有利（C6 位的羧基外露、利於分子間靜電排斥）。
+        <br><br>
+        <b>其他氧化方法：</b>
+        <br>
+        ・<b>過氧化氫 (H₂O₂)</b>：較溫和，主要產生 C=O；無氯殘留，常用於要求 Clean label 的產品<br>
+        ・<b>過硫酸鹽 (Persulfate)</b>：選擇性差但反應快<br>
+        ・<b>臭氧 (O₃) / 紫外光</b>：物理改性，可宣稱「Non-chemically modified」，但設備成本高<br>
+        ・<b>過碘酸鈉 (NaIO₄)</b>：專一斷 C2-C3 鍵生成雙醛澱粉 (DAS)，極特殊用途
+        <br><br>
+        <b>QC 重點：</b>羧基含量 (COOH%) 用<b>反滴定法</b>量測（鹼性 NaOH 中和後反滴定）；分子量分佈用 <b>GPC-MALS</b> 監控，確保不過度斷鏈。殘留活性氯需 < 0.1 ppm（FDA 規範）。
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============== 7. 原始 vs 修飾 比較 ============== -->
 <section class="block" id="compare">
   <div class="container">
-    <h2><span class="num">06</span>原始澱粉 vs 修飾澱粉：經過油炸與蒸煮後的命運</h2>
+    <h2><span class="num">07</span>原始澱粉 vs 修飾澱粉：經過油炸與蒸煮後的命運</h2>
     <p class="lede">把上面所有原理放進「真正的廚房測試」：兩塊一模一樣的雞排，分別用天然澱粉與修飾澱粉麵衣，下鍋後會發生什麼？</p>
 
     <div class="card">
@@ -1111,9 +1691,782 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 8. 糖類矩陣與梅納反應動力學 ============== -->
+<section class="block" id="sugars">
+  <div class="container">
+    <h2><span class="num">08</span>糖類矩陣與梅納反應動力學：誰先上色，誰是配角</h2>
+    <p class="lede">客戶常問「為什麼同樣 180℃ 下鍋，有些粉炸出來金黃漂亮、有些卻死白？」答案藏在<b>還原端 (reducing end) 的密度</b>與<b>分子開環速度</b>。下面把九種常用糖排成「反應活性表」，從最猛到最沉默。</p>
+
+    <div class="card">
+      <div style="overflow-x:auto">
+        <table class="data" style="font-size:13.5px">
+          <thead>
+            <tr>
+              <th style="text-align:left">排名 / 糖類</th>
+              <th>分子結構</th>
+              <th>還原端</th>
+              <th>梅納活性</th>
+              <th>典型上色 (170℃)</th>
+              <th class="L">第一性原理</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fff7e8">
+              <td class="L"><b>① 木糖 (Xylose)</b><br><span style="color:#888;font-size:12px">含於樹薯糖、五碳醛糖</span></td>
+              <td>五碳醛糖<br>(C₅H₁₀O₅)</td>
+              <td>1 個 (游離 -CHO)</td>
+              <td><span class="hl"><b>極高</b></span></td>
+              <td>深褐 ~ 焦糖紅</td>
+              <td class="L">五碳環張力大，<b>開環速率最快</b>，平衡態下 -CHO 暴露比例最高 → 最容易與 -NH₂ 形成 Schiff base。</td>
+            </tr>
+            <tr style="background:#fff7e8">
+              <td class="L"><b>② 果糖 (Fructose)</b></td>
+              <td>六碳酮糖<br>(C₆H₁₂O₆)</td>
+              <td>1 個 (酮基)</td>
+              <td><span class="hl"><b>極高</b></span></td>
+              <td>深褐</td>
+              <td class="L">雖是酮糖，但<b>呋喃環</b>結構不穩，異構化成醛糖速率快，再走 Heyns rearrangement，比葡萄糖快 ~5×。</td>
+            </tr>
+            <tr>
+              <td class="L"><b>③ 葡萄糖 (Glucose / Dextrose)</b></td>
+              <td>六碳醛糖</td>
+              <td>1 個</td>
+              <td>高</td>
+              <td>金黃 ~ 褐</td>
+              <td class="L">教科書級 Maillard 起點。<b>α-D-glucopyranose</b> 開環平衡常數約 0.02%，慢於果糖，但比雙糖快很多。</td>
+            </tr>
+            <tr>
+              <td class="L"><b>④ 麥芽糖 (Maltose)</b></td>
+              <td>雙糖<br>(2 葡萄糖 α-1,4)</td>
+              <td>1 個 (還原端)</td>
+              <td>中</td>
+              <td>淡金黃</td>
+              <td class="L">兩個葡萄糖中只有<b>一端</b>是還原端，活性等於「半個葡萄糖」。常用於想要顏色淺、不焦的配方。</td>
+            </tr>
+            <tr>
+              <td class="L"><b>⑤ 乳糖 (Lactose)</b></td>
+              <td>雙糖<br>(半乳糖+葡萄糖)</td>
+              <td>1 個 (葡萄糖端)</td>
+              <td>中</td>
+              <td>溫和金棕<br>+ 乳香</td>
+              <td class="L">活性類似麥芽糖，但<b>半乳糖部分在高溫下產生獨特的呋喃醛類 (furaneol, maltol)</b>，這是奶香炸雞、奶油炸魚的風味來源，植物糖無法替代。</td>
+            </tr>
+            <tr>
+              <td class="L"><b>⑥ 糊精 DE 18 (高 DE 麥芽糊精)</b></td>
+              <td>低聚糖<br>(短鏈 5–10 葡萄糖)</td>
+              <td>多個 (約 18%)</td>
+              <td>中-高</td>
+              <td>金黃</td>
+              <td class="L"><b>DE 值 = 還原端密度</b>。DE 18 表示每 100 g 乾物等於 18 g 葡萄糖當量。<b>還原端越多，上色越快</b>，但<b>吸濕性也高</b>，粉體易結塊。</td>
+            </tr>
+            <tr>
+              <td class="L"><b>⑦ 糊精 DE 10 (低 DE 麥芽糊精)</b></td>
+              <td>低聚糖<br>(較長 10–20 葡萄糖)</td>
+              <td>少 (約 10%)</td>
+              <td>中-低</td>
+              <td>淡金黃</td>
+              <td class="L">分子鏈較長，主要靠<b>成膜阻油</b>而非上色。台式酥炸粉常用 DE 8~10 平衡「酥脆度 + 顏色不死白」。</td>
+            </tr>
+            <tr style="background:#f3f6fa">
+              <td class="L"><b>⑧ 蔗糖 (Sucrose)</b><br><span style="color:#888;font-size:12px">＝砂糖</span></td>
+              <td>雙糖<br>(葡萄糖+果糖<br>α,β-1,2 糖苷鍵)</td>
+              <td><b>0 個</b></td>
+              <td><span style="color:#888"><b>無</b> (直接)</span></td>
+              <td>需 &gt;160℃ 焦糖化</td>
+              <td class="L">⚠️<b>非還原糖</b>。兩個還原端被糖苷鍵互相鎖住，不能直接走 Maillard。需先<b>酸性水解</b>(轉化糖) 或 &gt;160℃ <b>焦糖化 (caramelization)</b> 才上色。</td>
+            </tr>
+            <tr style="background:#f3f6fa">
+              <td class="L"><b>⑨ 純砂糖 (純蔗糖)</b></td>
+              <td>同上 (純度 99.8%)</td>
+              <td><b>0 個</b></td>
+              <td><span style="color:#888"><b>無</b></span></td>
+              <td>淺色 → 突然焦黑</td>
+              <td class="L">純度高 = 沒有任何雜質葡萄糖/果糖當啟動子。表現特徵：<b>長時間沒顏色 → 過了臨界溫度突然焦黑</b>，沒有「金黃緩衝區」。所以乾粉系統不單用砂糖。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="margin-top:18px">
+        <div style="background:#fff7ea; border-left:4px solid var(--accent); border-radius:6px; padding:14px 16px">
+          <b style="color:var(--accent)">🔬 R&D 關鍵洞察 1：DE 值的物理意義</b>
+          <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+            DE (Dextrose Equivalent) 不是「甜度」，而是<b>每 100 g 乾物中還原端的莫耳數，換算成葡萄糖當量</b>。
+            DE 100 = 純葡萄糖、DE 0 = 純澱粉（一條長鏈只有一個還原端，幾乎為零）。
+            <br><br>
+            <b>實務影響：</b><br>
+            ・DE↑ → 還原端↑ → <b>上色快、甜度高、吸濕性高</b>（粉容易潮）<br>
+            ・DE↓ → 還原端↓ → <b>成膜性佳、阻油、口感酥</b>（顏色淡）<br>
+            台式酥炸粉常用 <b>DE 8–12</b> 找平衡點。
+          </p>
+        </div>
+        <div style="background:#f3f6fa; border-left:4px solid var(--accent-3); border-radius:6px; padding:14px 16px">
+          <b style="color:var(--accent-3)">🔬 R&D 關鍵洞察 2：蔗糖「沒有金黃緩衝區」</b>
+          <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+            蔗糖的兩個還原端被糖苷鍵互相「綁住」，<b>常溫下不能參與梅納</b>。要上色得等：
+            <br>
+            ① 配方裡有酸（檸檬酸、SAPP）→ 酸性水解成轉化糖<br>
+            ② 油溫 &gt;160℃ 達焦糖化臨界
+            <br><br>
+            因此純砂糖配方在 150–160℃ 區間「<b>看起來都沒事</b>」，過了 160℃ 突然從淡黃 → 焦褐 → 焦黑，沒有緩衝。
+            <span class="hl"><b>解法：</b>加 1–3% <b>葡萄糖或低 DE 糊精</b>當「梅納啟動子」，把上色曲線拉平緩</span>。
+          </p>
+        </div>
+      </div>
+
+      <div style="background:#f7eddb; border:1px solid #d8b96a; border-left:4px solid var(--accent-2); border-radius:6px; padding:14px 16px; margin-top:16px">
+        <b style="color:#8a5a00">💼 業務口袋題：客戶說「我的炸雞顏色死白」</b>
+        <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+          80% 機率是<b>還原糖不足</b>。檢查他配方裡：
+          ① 是否只用蔗糖/砂糖 → 加 <b>1–2% 葡萄糖</b>立即改善<br>
+          ② 糊精是否選 DE&lt;5 → 換成 <b>DE 12–18</b>（注意吸濕性問題，得加防潮劑）<br>
+          ③ 蛋白質含量是否 &lt;3% → 補大豆蛋白或脫脂奶粉到 5–8%（梅納要 -NH₂ 提供，下章詳解）
+        </p>
+      </div>
+    </div>
+
+    <details class="tech">
+      <summary>🔬 技術層：梅納反應的三階段化學機制</summary>
+      <div class="body" style="line-height:1.8">
+        <b>階段 I — Schiff base 形成（&lt;100℃ 啟動）：</b><br>
+        還原糖開環暴露 -CHO → 與胺基酸的 -NH₂ 縮合脫水 → 形成 N-取代葡萄糖胺 (Schiff base)：<br>
+        <code style="background:#fff; padding:4px 8px; border-radius:4px; display:inline-block; margin:6px 0">
+          R-CHO + H₂N-R' → R-CH=N-R' + H₂O
+        </code>
+        <br><br>
+        <b>階段 II — Amadori 重排（100–140℃）：</b><br>
+        Schiff base 經過 1,2-烯醇化 → 重排成 Amadori 化合物（穩定中間體）。這一步決定後續產物的方向。
+        <br><br>
+        <b>階段 III — Strecker 降解 + 聚合（&gt;140℃）：</b><br>
+        Amadori 產物斷裂成各種 α-二羰基化合物 (deoxyosones) → 一邊與胺基酸發生 Strecker 降解產生<b>風味物質</b>（吡嗪、呋喃、噻吩 → 烤香、肉香、焦香），一邊聚合成<b>類黑精 (melanoidins)</b> → 棕褐色澤。
+        <br><br>
+        <b>溫度視窗：</b><br>
+        ・&lt;120℃：只走 I + II，沒顏色、沒香氣<br>
+        ・<b>140–160℃：黃金區間</b>，香氣最豐富、顏色金黃<br>
+        ・&gt;180℃：聚合過度 → 苦味、黑色焦化、丙烯醯胺 (acrylamide) 風險上升<br>
+        <br>
+        <b>為什麼蛋白質讓上色溫度下降到 140℃ 啟動？</b>因為<b>離胺酸 (Lysine) 側鏈 -NH₂</b> 的 pKa ≈ 10.5，在弱酸性麵糊中仍有可觀的去質子化比例，比游離 amino acid 反應性更高，活化能 (Ea) 比純醣類焦糖化低 ~25 kJ/mol。
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============== 9. 蛋白質與肉品的介面科學 ============== -->
+<section class="block" id="protein">
+  <div class="container">
+    <h2><span class="num">09</span>蛋白質與肉品的介面科學：脫殼問題的終極解</h2>
+    <p class="lede">
+      炸粉裡的蛋白質不只是「補蛋白質」這麼簡單。它身兼<b>三個工程角色</b>，缺一個就會出現特定缺陷。更關鍵的是 — 「脫殼」這個千年問題的真正解法<b>不在配方，而在前處理（摔打）</b>。本章拆給你看。
+    </p>
+
+    <h3 style="color:var(--accent-3); margin:24px 0 10px">8-1. 蛋白質在油炸粉中的三大功能</h3>
+    <div class="grid-3">
+      <div class="card" style="margin:0">
+        <div style="font-size:30px; text-align:center; margin-bottom:8px">🔥</div>
+        <h4 style="margin:0 0 8px; color:var(--accent)">① 梅納反應啟動子</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0">
+          蛋白質側鏈的<b>離胺酸 -NH₂</b>（Lysine 的 ε-amino group）是還原糖的最佳搭檔。
+          <br><br>
+          純醣類焦糖化需 &gt;160℃，但加入蛋白質後，梅納反應在 <b>140–150℃ 就啟動</b>，活化能下降 ~25 kJ/mol。
+          <br><br>
+          <b>實務：</b>炸雞配方蛋白質 5–10% 才能在<b>外殼薄</b>的條件下上色金黃。蛋白質不夠 → 顏色死白。
+        </p>
+      </div>
+      <div class="card" style="margin:0">
+        <div style="font-size:30px; text-align:center; margin-bottom:8px">🔗</div>
+        <h4 style="margin:0 0 8px; color:var(--accent)">② 介面張力 / 黏附力</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0">
+          蛋白質是<b>兩親性分子 (amphiphilic)</b> — 一邊是親水的肽鏈骨架與帶電側鏈，一邊是疏水的非極性側鏈（Phe、Leu、Val）。
+          <br><br>
+          這讓蛋白質能站在<b>肉表面（含水/油脂）↔ 澱粉漿（含水/澱粉粒）</b>的界面上，<b>降低界面張力</b>，當「分子橋樑」把兩相黏住。
+          <br><br>
+          <b>實務：</b>不加蛋白質的純澱粉漿，黏在生肉上的附著率 ~40%；加 5% 大豆蛋白 → 附著率 ~85%。
+        </p>
+      </div>
+      <div class="card" style="margin:0">
+        <div style="font-size:30px; text-align:center; margin-bottom:8px">🛡️</div>
+        <h4 style="margin:0 0 8px; color:var(--accent)">③ 強化網格 + 阻氣</h4>
+        <p style="font-size:14px; line-height:1.7; margin:0">
+          蛋白質受熱（&gt;65℃）變性展開 → <b>半胱胺酸 (Cysteine)</b> 的 -SH 基暴露 → 兩兩氧化成<b>雙硫鍵 (S–S bond)</b>。
+          <br><br>
+          這些 S–S 共價鍵把蛋白質縫成「網格」，與糊化澱粉膜<b>互相穿插交織</b>，強化氣室壁、提升蓬鬆度與咬感。
+          <br><br>
+          <b>實務：</b>麥麩蛋白（gluten）+ 大豆蛋白 → 雞排咬感層次明顯；只用澱粉 → 結構脆弱、入口就碎。
+        </p>
+      </div>
+    </div>
+
+    <h3 style="color:var(--accent-3); margin:30px 0 10px">8-2. 雞肉加工：游離蛋白質的萃取機制（前處理才是王）</h3>
+    <p style="font-size:15px; line-height:1.8; margin:0 0 14px">
+      ⚠️ <b>這是最被低估的關鍵</b>：客戶花大錢買高級炸粉，但如果生肉前處理沒做對，<b>肉本身那層「天然黏膠」根本沒被萃取出來</b>，再貴的炸粉也救不了脫殼。底層機制如下：
+    </p>
+
+    <div class="card" style="background:#f7eddb; border-color:#d8b96a">
+      <h4 style="margin:0 0 10px; color:#8a5a00">第 1 步：鹽溶性蛋白的釋放（Salt-soluble Protein Extraction）</h4>
+      <p style="font-size:14.5px; line-height:1.8; margin:0 0 12px">
+        肌肉組織中 ~60% 的蛋白質是<b>肌原纖維蛋白 (Myofibrillar protein)</b>，主要為<b>肌球蛋白 (Myosin)</b> 與<b>肌動蛋白 (Actin)</b>。它們在肌纖維裡緊密包裝，<b>不溶於純水</b>，需要特定離子強度才能溶出。
+      </p>
+      <table class="data" style="font-size:13px">
+        <thead>
+          <tr>
+            <th>處理</th>
+            <th>離子強度 μ</th>
+            <th>Myosin 萃取率<br><span style="font-weight:400;color:#888">(佔總肌原纖維蛋白)</span></th>
+            <th>絕對釋放量<br><span style="font-weight:400;color:#888">(g 游離蛋白 / 100g 雞胸肉)</span></th>
+            <th class="L">機制</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>清水醃</td><td>0.01</td><td>~5%</td><td>~0.6 g</td><td class="L">肌纖維結構不鬆動</td></tr>
+          <tr><td>鹽水<br>(NaCl 1.5%)</td><td>0.25</td><td>~30–35%</td><td>~3.5–4 g</td><td class="L">Cl⁻ 屏蔽蛋白質間靜電引力，肌絲開始鬆解</td></tr>
+          <tr><td>鹽 + 磷酸鹽<br>(靜置滲透，無攪打)</td><td>0.45</td><td>~50%</td><td>~5–6 g</td><td class="L">磷酸鹽螯合 Ca²⁺ 解開鈣橋，但缺少機械能</td></tr>
+          <tr><td>鹽 + 磷酸鹽<br>+ <b>翻拌/滾打</b><br>(20–40 min)</td><td>0.45</td><td>~60–70%</td><td>~7–8 g</td><td class="L">機械翻動讓鹽水滲透均勻，肌球蛋白逐步溶出</td></tr>
+          <tr style="background:#fff0d6"><td><b>鹽 + 磷酸鹽</b><br>+ <b>高剪切摔打</b><br>(Pounding 5–10 min)</td><td>0.45</td><td><b>~75–85%</b></td><td><b>~9–11 g</b></td><td class="L"><b>剪切力扯斷肌絲、把肌球蛋白「拉出來」變性</b>，表面形成 3–5% (w/w) 的可溶性膠狀蛋白層</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:13.5px; line-height:1.75; margin:10px 0 0; padding:12px 14px; background:#fff; border-left:3px solid var(--accent-3); border-radius:4px; color:var(--ink)">
+        <b>📐 質量守恆解讀（避免常見計算盲點）：</b><br><br>
+
+        <b>初始狀態：</b>100 g 雞胸肉 → 總蛋白 ~22 g → 肌原纖維蛋白（Myosin + Actin）佔總蛋白 ~55–60% → <b>絕對量約 12.5 g</b>。<br><br>
+
+        <b>極限萃取（高剪切摔打 80%）：</b>12.5 × 0.80 = <b>10 g 游離蛋白</b>。
+        相對於 100 g 起始肉重 = <b>10%（蛋白質本身的重量佔比）</b>，<u>不是 3–5%</u>。<br><br>
+
+        <b>「3–5%」的真實物理意義：</b>實務上常聽到的「3–5%」<u>不是游離蛋白本身的重量</u>，而是<b>「表面溶出漿液 (Exudate sol) 佔肉重的比例」</b>。
+        這層漿液是高濃度鹽溶性蛋白 + 結合水的黏稠混合物，蛋白濃度約 25–30%（亦即 3–5 g 漿液內含 ~1 g 蛋白） — 它才是兩塊肉之間或肉與麵衣之間真正的「分子膠水」。<br><br>
+
+        <b>兩個數字的對應：</b><br>
+        ・<b>游離肌球蛋白</b>：~10 g / 100 g 肉（質量守恆角度）<br>
+        ・<b>表面 Exudate sol 漿液</b>：~3–5 g / 100 g 肉（包含蛋白 + 結合水，介面層厚度的物理基礎）
+      </div>
+
+      <p style="font-size:14px; line-height:1.7; margin:12px 0 0">
+        <b>磷酸鹽（STPP/SHMP/SAPP 混合）的核心作用：</b>
+        ① <b>提升 pH</b> → 接近肌球蛋白等電點以上 → 蛋白質淨負電荷增加 → 排斥力鬆開肌纖維。
+        ② <b>螯合鈣離子</b> → 解開 actin 與 myosin 的鈣橋。
+        ③ <b>解離 actomyosin</b>（生肉死後僵直的根源）→ 雞肉變嫩、保水率提升。
+      </p>
+
+      <div style="font-size:14px; line-height:1.75; margin:12px 0 0; padding:12px 14px; background:#fff7ea; border-left:3px solid var(--accent); border-radius:4px">
+        <b>🔬 介面剝離強度的非線性關聯（必須加熱才成立）：</b><br>
+        「萃取率每升 10% → 介面剝離強度上升 15–20%」這個經驗法則的<b>前提是「加熱凝膠化 (Thermal Gelation)」</b>。
+        <br><br>
+        游離出來的 Myosin 在<b>生肉階段只是黏稠的溶膠 (Sol)</b>，這時剪切力雖然高但結構可以被剪散；
+        必須經過加熱（&gt;65℃），疏水基團暴露 → S–S 共價交聯 → 形成<b>不可逆的 3D 凝膠網絡 (Gel)</b>，剝離強度才真正建立。
+        <br><br>
+        游離量越高 → 交聯點密度越高 → <b>強度提升呈指數型而非線性</b>，這就是為什麼前處理多投入一點機械能、後段炸出來的麵衣會「整層剝不下來」。
+      </div>
+
+      <div style="font-size:14px; line-height:1.75; margin:10px 0 0; padding:12px 14px; background:#fff; border-left:3px solid var(--accent); border-radius:4px">
+        <b>⚠️ 業務常見誤區：</b>客戶以為「醃越久越入味」就會出筋，事實上<b>沒摔打的話再醃 24 小時，萃取率也只在 50% 上下打轉</b>。鹽和磷酸鹽是「把鎖打開」，<b>蛋白質真正能被「拉出來」必須靠機械剪切</b>——這就是為什麼鹹酥雞老闆都要「狠狠捶肉」、火腿廠都要用 vacuum tumbler 滾數小時。
+        <br><br>
+        分子層級的兩階段機制：
+        <br>
+        <b>① 化學開鎖 (Chemical Unlocking) — 靜電排斥 + 解離：</b><br>
+        ・<b>NaCl</b>：Cl⁻ 結合在蛋白質正電荷區域 → 等電點 (pI) 左移 → 淨負電荷增加 → 同性相斥讓肌纖維「膨潤 (Swelling)」（把門打開，但蛋白還在屋子裡）<br>
+        ・<b>磷酸鹽</b>：扮演類似 ATP 的角色 — 死後僵直時 Myosin 與 Actin 緊密結合成 Actomyosin，磷酸鹽切斷此鍵結，把它拆解回獨立的 Myosin 與 Actin（這才是真正的「開鎖」）<br><br>
+
+        <b>② 物理拉出 (Physical Extraction) — 動能 + 剪切力：</b><br>
+        即使鎖已經打開，Myosin 依然被包在<b>肌纖維膜 (Sarcolemma)</b> 與<b>內肌膜 (Endomysium)</b> 的三維物理空間裡。
+        必須提供外部動能 (E = ½mv²) → 物理剪切撕裂這些膜 → 解離的 Myosin 才能從細胞內<b>「拉出來」進到連續水相</b>。
+        <br>
+        缺少這一步，再多的鹽和磷酸鹽只能讓肉「保水」，<b>無法產生黏性</b>。
+      </div>
+    </div>
+
+    <div class="card" style="background:#f3f6fa; border-color:#a8c0d8">
+      <h4 style="margin:0 0 10px; color:var(--accent-3)">第 2 步：機械摔打 → 形成「天然高分子生物膠」</h4>
+      <p style="font-size:14.5px; line-height:1.8; margin:0 0 8px">
+        鹽水 + 磷酸鹽只是「把鎖打開」，要把蛋白質真正「拉出來」必須靠<b>機械能</b>。實務上分三種強度：
+      </p>
+      <ul style="font-size:14.5px; line-height:1.8; margin:8px 0 0">
+        <li><b>翻拌 (Tumbling)</b>：低剪切，適合整塊肉，萃取量中等</li>
+        <li><b>滾打 (Massaging)</b>：中剪切 + 真空，配合鹽水滲透，常用於火腿/雞胸</li>
+        <li><b>摔打 (Pounding)</b>：高剪切，<b>把肌球蛋白扯出肌絲、解開螺旋構象</b>，表面形成<b>黏稠透明膠狀層</b>（俗稱「<b>出筋</b>」）</li>
+      </ul>
+      <p style="font-size:14.5px; line-height:1.8; margin:12px 0 0">
+        這層膠的本體就是<b>溶解+部分變性的肌球蛋白</b>，黏度可達 <b>5,000–20,000 cP</b>，是最強的<b>天然介面黏合劑</b>。它讓裹漿、裹粉能像「貼上膠帶」一樣穩固抓在肉表面。
+      </p>
+    </div>
+
+    <div class="card" style="background:#fff7ea; border-color:#f0d9a8">
+      <h4 style="margin:0 0 10px; color:var(--accent)">第 3 步：熱誘導交聯（Thermal Cross-linking）— 終極縫合</h4>
+      <p style="font-size:14.5px; line-height:1.8; margin:0">
+        當外層裹粉碰到 180℃ 熱油，<b>肉表面的肌球蛋白</b>（已暴露於空氣/麵衣界面）與<b>麵衣裡的大豆蛋白/麩質</b>同時受熱：
+      </p>
+      <ol style="font-size:14.5px; line-height:1.8; margin:10px 0">
+        <li><b>瞬時變性</b>（&gt;65℃ 在 0.5 秒內）→ 兩邊蛋白質都展開，疏水核心暴露。</li>
+        <li><b>疏水交互作用</b>形成第一層臨時錨定（Van der Waals + 疏水堆疊）。</li>
+        <li><b>-SH 氧化交聯</b>（&gt;80℃）→ 肉蛋白的 -SH ↔ 麵衣蛋白的 -SH 形成 <b>共價 S–S 鍵</b> → <b>不可逆縫合</b>。</li>
+        <li><b>梅納交聯</b>（&gt;140℃）→ 還原糖 + -NH₂ 在界面上同時把雙方織進類黑精網絡。</li>
+      </ol>
+      <p style="font-size:14.5px; line-height:1.8; margin:8px 0 0">
+        <b>結果：</b>麵衣與肉在分子層級被「縫」在一起，不是物理黏附，而是<b>共價交聯網絡</b>。冷凍解凍後也不會脫殼，因為 S–S 鍵的鍵能 ~250 kJ/mol，遠高於冰晶生長造成的剪切應力。
+      </p>
+    </div>
+
+    <div style="background:#f7eddb; border:1px solid #d8b96a; border-left:4px solid var(--accent-2); border-radius:6px; padding:14px 16px; margin-top:16px">
+      <b style="color:#8a5a00">💼 業務口袋題：客戶炸雞冷凍解凍後脫殼，怪粉沒附著力</b>
+      <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+        先反問三件事，再決定是否真的需要換粉：
+        <br>
+        ① <b>鹽水醃製有沒有加磷酸鹽？</b>（沒加 → Myosin 萃取率 &lt;35%，無論用多好的炸粉都黏不牢）<br>
+        ② <b>有沒有摔打/滾打？</b>（沒做 → 肉表面沒有「天然膠」這層介面）<br>
+        ③ <b>裹粉前肉表面有沒有先擦乾？</b>（過濕 → 蛋白質被水稀釋、共價交聯機會降低）
+        <br><br>
+        <span class="hl"><b>如果這三步都做對了，再來討論炸粉配方升級</b></span>。否則粉換再貴也無法解決脫殼問題。
+      </p>
+    </div>
+
+    <h3 style="color:var(--accent-3); margin:30px 0 10px">8-3. 🧬 肌球蛋白溫度響應動畫</h3>
+    <p style="font-size:15px; line-height:1.7; margin:0 0 14px">
+      把上面那段「<b>40–45℃ 頭部 S1 展開 → 50–55℃ 柄區熔解 → 60–80℃ S–S 交聯 → &gt;80℃ 完全凝固</b>」的構象變化做成動畫。觀察 4 個肌球蛋白分子如何從<b>獨立游動 → 頭部展開 → 鏈條交聯 → 共價鍵縫合 → 不可逆三維網絡</b>。
+    </p>
+
+    <div class="card" style="background:#f7f4ed; border-color:#d8c89a">
+      <div class="myosin-stage">
+        <svg viewBox="0 0 720 380" id="myosinSvg" style="width:100%; display:block">
+          <defs>
+            <linearGradient id="myoBg" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#fff"/>
+              <stop offset="100%" stop-color="#f0ead8"/>
+            </linearGradient>
+            <radialGradient id="myoHead" cx="35%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#fff8c8"/>
+              <stop offset="100%" stop-color="#9c6020"/>
+            </radialGradient>
+            <radialGradient id="myoHeadUnfold" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#ffd97a"/>
+              <stop offset="100%" stop-color="#7a3a08"/>
+            </radialGradient>
+            <radialGradient id="myoHeadGel" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#e8a868"/>
+              <stop offset="100%" stop-color="#5a2008"/>
+            </radialGradient>
+            <linearGradient id="thermoGrad" x1="0" x2="0" y1="1" y2="0">
+              <stop offset="0%" stop-color="#fde481"/>
+              <stop offset="50%" stop-color="#e88030"/>
+              <stop offset="100%" stop-color="#c9472b"/>
+            </linearGradient>
+            <linearGradient id="viscGrad" x1="0" x2="0" y1="1" y2="0">
+              <stop offset="0%" stop-color="#a8c0d8"/>
+              <stop offset="50%" stop-color="#3e6b9b"/>
+              <stop offset="100%" stop-color="#1a3a6a"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="720" height="380" fill="url(#myoBg)" rx="12"/>
+
+          <!-- Thermometer -->
+          <g transform="translate(20 20)">
+            <text x="55" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#5a3010">溫度 (℃)</text>
+            <rect x="40" y="22" width="22" height="280" rx="11" fill="#fff" stroke="#888" stroke-width="1.5"/>
+            <rect id="thermoFill" x="42" y="300" width="18" height="0" fill="url(#thermoGrad)" rx="9"/>
+            <circle cx="51" cy="320" r="20" fill="#c9472b" stroke="#7a1a08" stroke-width="2"/>
+            <g font-size="10" fill="#666">
+              <line x1="62" y1="32" x2="68" y2="32" stroke="#666"/><text x="72" y="35">100</text>
+              <line x1="62" y1="78" x2="68" y2="78" stroke="#666"/><text x="72" y="81">80</text>
+              <line x1="62" y1="124" x2="68" y2="124" stroke="#666"/><text x="72" y="127">60</text>
+              <line x1="62" y1="170" x2="68" y2="170" stroke="#666"/><text x="72" y="173">40</text>
+              <line x1="62" y1="216" x2="68" y2="216" stroke="#666"/><text x="72" y="219">20</text>
+              <line x1="62" y1="262" x2="68" y2="262" stroke="#666"/><text x="72" y="265">0</text>
+            </g>
+            <text id="myoTempText" x="51" y="358" text-anchor="middle" font-size="22" font-weight="900" fill="#c9472b">25℃</text>
+          </g>
+
+          <!-- Stage label (top center) -->
+          <text id="myoStageLabel" x="385" y="32" text-anchor="middle" font-size="17" font-weight="800" fill="#5a8c3a">天然態 (Native) — 25℃</text>
+
+          <!-- Molecule layer -->
+          <g id="myosinLayer" transform="translate(140 20)"></g>
+          <!-- Crosslinks layer -->
+          <g id="crosslinkLayer" transform="translate(140 20)"></g>
+
+          <!-- Viscosity meter -->
+          <g transform="translate(620 20)">
+            <text x="40" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#3e6b9b">黏度</text>
+            <rect x="20" y="22" width="40" height="280" rx="6" fill="#fff" stroke="#888" stroke-width="1.5"/>
+            <rect id="viscFill" x="22" y="300" width="36" height="0" fill="url(#viscGrad)" rx="4"/>
+            <g font-size="10" fill="#666">
+              <line x1="60" y1="32" x2="64" y2="32" stroke="#666"/><text x="68" y="35">爆表</text>
+              <line x1="60" y1="100" x2="64" y2="100" stroke="#666"/><text x="68" y="103">高</text>
+              <line x1="60" y1="170" x2="64" y2="170" stroke="#666"/><text x="68" y="173">中</text>
+              <line x1="60" y1="240" x2="64" y2="240" stroke="#666"/><text x="68" y="243">低</text>
+              <line x1="60" y1="298" x2="64" y2="298" stroke="#666"/><text x="68" y="301">0</text>
+            </g>
+            <text id="myoViscText" x="40" y="358" text-anchor="middle" font-size="18" font-weight="800" fill="#3e6b9b">6%</text>
+          </g>
+
+          <!-- Legend (small) -->
+          <g transform="translate(140 350)" font-size="11" fill="#5a3010">
+            <circle cx="0" cy="0" r="5" fill="url(#myoHead)" stroke="#5a3a18"/>
+            <text x="10" y="3">頭部 S1</text>
+            <line x1="80" y1="0" x2="100" y2="0" stroke="#5a8c3a" stroke-width="2.2"/>
+            <text x="105" y="3">α-螺旋柄區</text>
+            <circle cx="180" cy="0" r="3" fill="#c9472b"/>
+            <text x="186" y="3">疏水基團</text>
+            <circle cx="245" cy="0" r="3" fill="#fde481" stroke="#7a5a08"/>
+            <text x="252" y="3">-SH / S–S</text>
+            <line x1="320" y1="0" x2="340" y2="0" stroke="#e8c44a" stroke-width="2.5" stroke-dasharray="4 2"/>
+            <text x="345" y="3">分子間 S–S 交聯</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="myosin-controls">
+        <button class="myosin-btn on" data-stage="1">25℃ 天然</button>
+        <button class="myosin-btn" data-stage="2">42℃ 頭部展開</button>
+        <button class="myosin-btn" data-stage="3">52℃ 柄區熔解</button>
+        <button class="myosin-btn" data-stage="4">72℃ S–S 交聯</button>
+        <button class="myosin-btn" data-stage="5">88℃ 完全凝固</button>
+        <button class="myosin-btn myo-auto" id="myosinAuto">▶ 自動加熱</button>
+      </div>
+
+      <div class="myosin-caption" id="myosinCaption"></div>
+
+      <p class="note" style="margin-top:12px">
+        <b>業務話術：</b>「客戶的炸雞咬下去如果<b>麵衣與肉中間有空隙</b>，就是 60–80℃ 那段 S–S 交聯沒做好。原因 90% 是<b>前處理摔打不足</b>，肌球蛋白根本沒被萃取出來放到界面上 — 沒有底物，再好的麵衣蛋白也找不到對手交聯。」
+      </p>
+    </div>
+
+    <details class="tech">
+      <summary>🔬 技術層：肌球蛋白構象變化的時間軸</summary>
+      <div class="body" style="line-height:1.8">
+        <b>肌球蛋白 (Myosin)</b> 是六聚體蛋白（2 重鏈 + 4 輕鏈），分子量 ~520 kDa，呈「<b>頭-柄-尾</b>」啞鈴狀：
+        <br><br>
+        <b>柄區 (Rod)</b>：α-螺旋，疏水性高 → 變性後互相纏繞，是<b>形成凝膠網絡的主力</b>。<br>
+        <b>頭部 (S1)</b>：球狀域，含 ATP 結合位 → 在鹽溶液中保持球狀，提供水合與表面活性。<br>
+        <br>
+        <b>關鍵溫度節點：</b><br>
+        ・40–45℃：頭部 S1 開始展開，疏水基團暴露 → 黏度急速上升<br>
+        ・<b>50–55℃：柄區 α-螺旋熔解</b> → 尾尾交聯，凝膠化開始<br>
+        ・60–80℃：S–H 氧化、Maillard 啟動<br>
+        ・&gt;80℃：完全凝固，形成不可逆三維網絡<br>
+        <br>
+        <b>炸粉配方對接：</b>蛋白質含量設計 5–10% 是經驗值，但精確配比應根據<b>肉本身能釋出的肌球蛋白量</b>來反推 — 高萃取率（鹽+磷酸鹽+摔打做得好）→ 配方蛋白可降至 5%；低萃取率 → 配方蛋白要拉到 10–12% 補介面。
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============== 10. 雙炸法 (Double Frying) ============== -->
+<section class="block" id="doublefry">
+  <div class="container">
+    <h2><span class="num">10</span>雙炸法 (Double Frying)：用「短期老化」打造微觀鋼筋骨架</h2>
+    <p class="lede">
+      雙炸法的靈魂<b>不在油溫切換</b>，而在<b>中間那段冷卻期</b>。冷卻期讓糊化後的<b>直鏈澱粉短期老化重結晶</b>，建構出能承受第二炸高溫氣流衝擊的<b>微觀「鋼筋混凝土」骨架</b>。
+      麥當勞薯條、韓式炸雞、英國 Fish & Chips、比利時薯條全都靠這招。從第一性原理拆解三階段熱力學/相變機制：
+    </p>
+
+    <!-- 三階段時間軸視覺化 -->
+    <div class="card" style="background:linear-gradient(180deg,#fffaf0 0%,#fff 100%); border-color:#e8d8a8">
+      <h3 style="margin:0 0 10px; color:var(--accent)">⏱️ 雙炸法溫度-時間曲線</h3>
+      <div style="background:#fff; border-radius:8px; padding:10px; border:1px solid #e8d8a8">
+        <svg viewBox="0 0 720 290" style="width:100%; display:block">
+          <defs>
+            <linearGradient id="dfFry1" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#e88030"/>
+              <stop offset="100%" stop-color="#c9472b"/>
+            </linearGradient>
+            <linearGradient id="dfFry2" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#c9472b"/>
+              <stop offset="100%" stop-color="#7a1a08"/>
+            </linearGradient>
+            <linearGradient id="dfCool" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#a8c0d8"/>
+              <stop offset="100%" stop-color="#3e6b9b"/>
+            </linearGradient>
+            <pattern id="dfGrid" width="60" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 40" fill="none" stroke="#f0e8d0" stroke-width=".8"/>
+            </pattern>
+          </defs>
+          <rect width="720" height="290" fill="url(#dfGrid)"/>
+
+          <!-- 三段背景色塊 (依時間段視覺分區) -->
+          <rect x="60" y="20" width="120" height="220" fill="#fff5e8" opacity=".4"/>      <!-- 第一炸區 -->
+          <rect x="180" y="20" width="280" height="220" fill="#eaf2fb" opacity=".4"/>      <!-- 冷卻區 -->
+          <rect x="460" y="20" width="160" height="220" fill="#fdebe4" opacity=".4"/>      <!-- 第二炸區 -->
+          <rect x="620" y="20" width="80"  height="220" fill="#f5f5f0" opacity=".4"/>      <!-- 出鍋後 -->
+
+          <!-- 軸線 -->
+          <line x1="60" y1="240" x2="700" y2="240" stroke="#5a3010" stroke-width="1.5"/>
+          <line x1="60" y1="20"  x2="60"  y2="240" stroke="#5a3010" stroke-width="1.5"/>
+
+          <!-- Y 軸刻度與輔助線 -->
+          <g font-size="11" fill="#5a3010">
+            <text x="55" y="244" text-anchor="end">25</text>
+            <line x1="56" y1="240" x2="60" y2="240" stroke="#5a3010"/>
+
+            <text x="55" y="184" text-anchor="end">100</text>
+            <line x1="56" y1="180" x2="60" y2="180" stroke="#5a3010"/>
+            <line x1="60" y1="180" x2="700" y2="180" stroke="#bfa570" stroke-dasharray="3 3" stroke-width=".8" opacity=".5"/>
+
+            <text x="55" y="124" text-anchor="end">160</text>
+            <line x1="56" y1="120" x2="60" y2="120" stroke="#5a3010"/>
+            <line x1="60" y1="120" x2="700" y2="120" stroke="#e88030" stroke-dasharray="3 3" stroke-width=".8" opacity=".7"/>
+
+            <text x="55" y="84" text-anchor="end">180</text>
+            <line x1="56" y1="80" x2="60" y2="80" stroke="#5a3010"/>
+            <line x1="60" y1="80" x2="700" y2="80" stroke="#c9472b" stroke-dasharray="3 3" stroke-width=".8" opacity=".7"/>
+
+            <text x="40" y="135" text-anchor="middle" transform="rotate(-90 40 135)" font-weight="700">溫度 (℃)</text>
+          </g>
+
+          <!-- X 軸刻度（時間軸經視覺壓縮，但每段內部時間正確對應曲線跨度） -->
+          <g font-size="11" fill="#5a3010" text-anchor="middle">
+            <text x="60" y="258">0</text>
+            <line x1="60" y1="240" x2="60" y2="244" stroke="#5a3010"/>
+
+            <text x="180" y="258">5</text>
+            <line x1="180" y1="240" x2="180" y2="244" stroke="#5a3010"/>
+
+            <!-- 時間軸壓縮指示 (zigzag break) -->
+            <g stroke="#5a3010" stroke-width="1.2" fill="#fff">
+              <path d="M 290 244 l 4 -8 l 6 16 l 6 -16 l 4 8 z"/>
+            </g>
+
+            <text x="460" y="258">35</text>
+            <line x1="460" y1="240" x2="460" y2="244" stroke="#5a3010"/>
+
+            <text x="540" y="258">36.5</text>
+            <line x1="540" y1="240" x2="540" y2="244" stroke="#5a3010"/>
+
+            <text x="660" y="258">40</text>
+            <line x1="660" y1="240" x2="660" y2="244" stroke="#5a3010"/>
+
+            <text x="380" y="280" font-weight="700">時間 (min) — 中段冷卻區視覺壓縮</text>
+          </g>
+
+          <!-- Stage 1 第一炸 (0~5 min, 跨 x=60 ~ x=180) -->
+          <path d="M 60 240 Q 80 180 100 130 L 140 120 Q 160 130 175 200 L 180 240 Z"
+                fill="url(#dfFry1)" opacity=".55" stroke="#c9472b" stroke-width="2"/>
+          <text x="120" y="105" text-anchor="middle" font-size="13" font-weight="800" fill="#c9472b">第一炸</text>
+          <text x="120" y="120" text-anchor="middle" font-size="11" fill="#7a3a08">160℃ × 5 min</text>
+
+          <!-- Stage 2 冷卻 (5~35 min, 跨 x=180 ~ x=460) -->
+          <line x1="180" y1="240" x2="460" y2="240" stroke="#3e6b9b" stroke-width="3" stroke-dasharray="5 3"/>
+          <rect x="185" y="225" width="270" height="22" fill="url(#dfCool)" opacity=".3" rx="4"/>
+          <text x="320" y="218" text-anchor="middle" font-size="13" font-weight="800" fill="#3e6b9b">冷卻 (室溫 25℃ × 30 min)</text>
+          <text x="320" y="205" text-anchor="middle" font-size="11" fill="#3e6b9b">⭐ 直鏈澱粉短期老化重結晶 — 形成微觀骨架</text>
+
+          <!-- Stage 3 第二炸 (35~36.5 min, 跨 x=460 ~ x=540) -->
+          <path d="M 460 240 Q 478 170 495 90 L 520 80 Q 532 95 537 200 L 540 240 Z"
+                fill="url(#dfFry2)" opacity=".7" stroke="#7a1a08" stroke-width="2"/>
+          <text x="500" y="65" text-anchor="middle" font-size="13" font-weight="800" fill="#7a1a08">第二炸</text>
+          <text x="500" y="80" text-anchor="middle" font-size="11" fill="#7a1a08">180℃ × 1.5 min</text>
+
+          <!-- 出鍋後降溫 (36.5~40 min, 跨 x=540 ~ x=660) -->
+          <path d="M 540 240 Q 580 220 660 235" fill="none" stroke="#888" stroke-width="2" stroke-dasharray="3 3"/>
+          <text x="600" y="218" text-anchor="middle" font-size="11" fill="#666" font-style="italic">出鍋 → 玻璃態</text>
+
+          <!-- 三階段機制標籤 (底部) -->
+          <g font-size="11" fill="#5a3010" text-anchor="middle">
+            <text x="120" y="20" font-weight="700" fill="#c9472b">糊化 Gelatinization</text>
+            <text x="320" y="20" font-weight="700" fill="#3e6b9b">短期老化 Retrogradation</text>
+            <text x="500" y="20" font-weight="700" fill="#7a1a08">玻璃態 Glass Transition</text>
+          </g>
+        </svg>
+      </div>
+      <p class="note" style="margin-top:8px">
+        <b>關鍵：</b>沒有中間那段藍色冷卻期，第二炸的水分爆發就沒有「鋼筋骨架」可以撐住，麵衣會直接塌陷成油膩軟泥 — 這就是單炸與雙炸最根本的差異。
+      </p>
+    </div>
+
+    <!-- 三階段詳解 -->
+    <h3 style="color:var(--accent-3); margin:24px 0 12px">🔬 三階段機制詳解（從第一性原理拆解）</h3>
+    <div class="grid-3">
+      <!-- Stage 1 -->
+      <div class="card" style="margin:0; border-top:4px solid #c9472b">
+        <div style="font-size:12px; font-weight:800; color:#c9472b; letter-spacing:1px">STAGE 1 ─ 160℃ ─ 5 MIN</div>
+        <h4 style="margin:6px 0 10px; color:#c9472b">糊化與網絡建立 (Gelatinization)</h4>
+        <p style="font-size:13.5px; line-height:1.8; margin:0">
+          生澱粉是<b>緊密堆疊的半結晶顆粒</b>。麵衣或薯條表層在 160℃ 油中受熱，澱粉顆粒<b>吸水膨脹破裂</b>，釋放出直鏈澱粉與支鏈澱粉。
+          <br><br>
+          <b>分子事件：</b>澱粉的羥基與水形成大量氫鍵 → 變成<b>柔軟、有黏性的無定形凝膠</b> (amorphous gel)。
+          <br><br>
+          <b>狀態：</b>外殼雖熟，但<b>微觀結構毫無支撐力</b>（軟趴趴）。如果此時直接二炸 → 凝膠因內水汽化崩裂、極高吸油率、不脆。
+        </p>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="card" style="margin:0; border-top:4px solid #3e6b9b; background:#f5faff">
+        <div style="font-size:12px; font-weight:800; color:#3e6b9b; letter-spacing:1px">STAGE 2 ─ 室溫 ─ 30 MIN ⭐</div>
+        <h4 style="margin:6px 0 10px; color:#3e6b9b">直鏈澱粉短期老化（核心）</h4>
+        <p style="font-size:13.5px; line-height:1.8; margin:0">
+          冷卻期啟動<b>兩個物理化學反應</b>：
+          <br><br>
+          <b>① 水分梯度平衡 (Mass Transfer)：</b>內核（肉/馬鈴薯）的水分依滲透壓向外遷移；表層的游離水蒸發散逸 → <b>降低表面水分活度 (a_w)</b>。
+          <br><br>
+          <b>② 直鏈澱粉重結晶 (Short-term Retrogradation)：</b>溫度↓ → 分子動能↓ → 線性的直鏈澱粉<b>互相靠近、平行排列</b>，透過分子間氫鍵交聯成<b>雙股螺旋微結晶區</b>。
+          <br><br>
+          <b>為什麼叫「短期」：</b>線性結構的直鏈澱粉只需<b>幾十分鐘</b>就能完成重結晶；高度分支的支鏈澱粉（隔夜麵包硬化主因）需要數天。短短 30 分鐘，足以把軟爛凝膠固化成<b>堅韌的 3D 網狀骨架</b>。
+        </p>
+      </div>
+
+      <!-- Stage 3 -->
+      <div class="card" style="margin:0; border-top:4px solid #7a1a08">
+        <div style="font-size:12px; font-weight:800; color:#7a1a08; letter-spacing:1px">STAGE 3 ─ 180℃ ─ 1.5 MIN</div>
+        <h4 style="margin:6px 0 10px; color:#7a1a08">玻璃態轉變 + 微孔固化</h4>
+        <p style="font-size:13.5px; line-height:1.8; margin:0">
+          進入 180℃ 高溫油，骨架已就位：
+          <br><br>
+          <b>① 極速脫水：</b>表層殘留水分瞬間汽化（液→氣 體積膨脹 ~1700×）。
+          <br><br>
+          <b>② 微孔發泡 (Microporous Structure)：</b>水蒸氣衝破表面時，<b>不會讓麵衣崩塌</b>（因為直鏈骨架撐著），而是在骨架中撐出<b>無數均勻微小孔洞</b> → 多孔酥脆結構成型。
+          <br><br>
+          <b>③ 玻璃態轉變 (Glass Transition)：</b>水分被徹底逼出 → 澱粉基質的<b>玻璃轉化溫度 T_g</b> 急遽上升超過環境溫度 → 從具彈性的<b>橡膠態 (rubbery)</b> 轉變為<b>堅硬脆裂的玻璃態 (glassy)</b> → 咬下去咔滋作響的聲音物理來源。
+        </p>
+      </div>
+    </div>
+
+    <!-- 單炸 vs 雙炸 微結構對比 -->
+    <div class="card" style="margin-top:18px; background:linear-gradient(135deg,#fff7ea 0%,#f5faff 100%); border-color:#d8c89a">
+      <h3 style="margin:0 0 12px; color:var(--accent)">🔍 微結構對比：為什麼單炸做不到「久放不軟」</h3>
+      <div class="grid-2" style="gap:16px">
+        <!-- 單炸 -->
+        <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid #e8c8a8">
+          <h4 style="margin:0 0 8px; color:#c9472b">❌ 單炸 (180℃ × 6 min)</h4>
+          <svg viewBox="0 0 200 140" style="width:100%; display:block; background:#fff8e8; border-radius:6px">
+            <!-- 麵衣 (collapsed mush) -->
+            <ellipse cx="100" cy="80" rx="90" ry="40" fill="#c47a1c" stroke="#5a2c08" stroke-width="1.5"/>
+            <!-- big collapsed bubbles -->
+            <ellipse cx="60" cy="75" rx="20" ry="15" fill="#a85814" opacity=".7"/>
+            <ellipse cx="130" cy="85" rx="25" ry="18" fill="#8a4a10" opacity=".7"/>
+            <ellipse cx="100" cy="60" rx="15" ry="10" fill="#7a3a08" opacity=".5"/>
+            <!-- oil dripping -->
+            <g fill="#fde481" stroke="#a87a14" stroke-width=".6">
+              <ellipse cx="40" cy="115" rx="6" ry="3"/>
+              <ellipse cx="100" cy="118" rx="8" ry="4"/>
+              <ellipse cx="160" cy="115" rx="6" ry="3"/>
+            </g>
+            <text x="100" y="135" text-anchor="middle" font-size="10" fill="#7a3a08" font-style="italic">大孔洞 + 高吸油 + 軟塌</text>
+          </svg>
+          <ul style="font-size:13px; line-height:1.7; margin:10px 0 0; padding-left:18px">
+            <li>糊化凝膠直接被內水汽化撐破 → <b>大孔洞、結構不均</b></li>
+            <li>沒有重結晶骨架 → <b>水分爆發後立刻塌陷</b></li>
+            <li>吸油率 <b>18–25%</b>，咬下去油膩</li>
+            <li>放 5 分鐘就軟（<b>沒有 Tg 緩衝區</b>）</li>
+          </ul>
+        </div>
+        <!-- 雙炸 -->
+        <div style="background:#fff; padding:14px; border-radius:8px; border:2px solid #5a8c3a">
+          <h4 style="margin:0 0 8px; color:#5a8c3a">✅ 雙炸 (160℃ → 冷卻 → 180℃)</h4>
+          <svg viewBox="0 0 200 140" style="width:100%; display:block; background:#fff8e8; border-radius:6px">
+            <!-- 麵衣 (porous, structured) -->
+            <ellipse cx="100" cy="80" rx="90" ry="40" fill="#e8b550" stroke="#5a2c08" stroke-width="1.5"/>
+            <!-- micro骨架網絡 -->
+            <g stroke="#7a3a08" stroke-width=".8" fill="none" opacity=".5">
+              <line x1="20" y1="80" x2="180" y2="80"/>
+              <line x1="40" y1="60" x2="160" y2="100"/>
+              <line x1="40" y1="100" x2="160" y2="60"/>
+              <line x1="60" y1="50" x2="140" y2="110"/>
+              <line x1="60" y1="110" x2="140" y2="50"/>
+            </g>
+            <!-- many small uniform pores -->
+            <g fill="#fff8c8" stroke="#a87a14" stroke-width=".5">
+              <circle cx="50" cy="68" r="3"/><circle cx="70" cy="80" r="3"/><circle cx="90" cy="65" r="3"/>
+              <circle cx="110" cy="78" r="3"/><circle cx="130" cy="68" r="3"/><circle cx="150" cy="80" r="3"/>
+              <circle cx="60" cy="92" r="3"/><circle cx="80" cy="98" r="3"/><circle cx="100" cy="92" r="3"/>
+              <circle cx="120" cy="98" r="3"/><circle cx="140" cy="92" r="3"/>
+              <circle cx="80" cy="58" r="2.5"/><circle cx="120" cy="58" r="2.5"/>
+              <circle cx="55" cy="105" r="2.5"/><circle cx="145" cy="105" r="2.5"/>
+            </g>
+            <!-- sparkles -->
+            <g fill="#fff8d5">
+              <ellipse cx="55" cy="60" rx="3" ry="1.5" transform="rotate(-15 55 60)"/>
+              <ellipse cx="145" cy="62" rx="3" ry="1.5" transform="rotate(15 145 62)"/>
+            </g>
+            <text x="100" y="135" text-anchor="middle" font-size="10" fill="#5a8c3a" font-style="italic">微孔均勻 + 低吸油 + 玻璃脆</text>
+          </svg>
+          <ul style="font-size:13px; line-height:1.7; margin:10px 0 0; padding-left:18px">
+            <li>直鏈骨架先成型 → <b>微孔均勻、結構緻密</b></li>
+            <li>水蒸氣只撐出小孔，不破骨架</li>
+            <li>吸油率 <b>10–14%</b>（降 ~40%）</li>
+            <li>進入<b>玻璃態</b> → 咔滋脆響，可保溫 7–10 分鐘</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 實務操作參數 + 業務應用 -->
+    <div class="grid-2" style="margin-top:14px">
+      <div class="card" style="margin:0">
+        <h4 style="margin:0 0 10px; color:var(--accent-3)">⚙️ 實務操作參數</h4>
+        <table class="data" style="font-size:13px">
+          <thead><tr><th>階段</th><th>溫度</th><th>時間</th><th class="L">關鍵控制</th></tr></thead>
+          <tbody>
+            <tr><td>第一炸</td><td>150–165℃</td><td>3–6 min</td><td class="L">糊化完成、外殼還未上色（淡黃即可）</td></tr>
+            <tr style="background:#e8f4ff"><td><b>冷卻 ⭐</b></td><td><b>室溫 (25℃)</b></td><td><b>20–40 min</b></td><td class="L"><b>關鍵：分散開不堆疊，避免水汽悶回去</b></td></tr>
+            <tr><td>(加速)冷藏</td><td>4℃</td><td>10–20 min</td><td class="L">時間壓縮 50%，速食連鎖常用</td></tr>
+            <tr><td>(加速)冷凍</td><td>-18℃</td><td>5–15 min</td><td class="L">工業急凍，等於「鎖住」短期老化結構</td></tr>
+            <tr><td>第二炸</td><td>175–185℃</td><td>1–2 min</td><td class="L">急速脫水 + Maillard 上色 + 進入玻璃態</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:8px"><b>三炸法 (比利時薯條)：</b>140℃ 預煮 → 160℃ 第二炸 → 180℃ 第三炸，多一段「降階梯」讓骨架更均勻、外殼更脆。</p>
+      </div>
+      <div class="card" style="margin:0">
+        <h4 style="margin:0 0 10px; color:var(--accent-3)">🌍 全球雙炸法產品地圖</h4>
+        <div style="font-size:13.5px; line-height:1.85">
+          🍟 <b>麥當勞薯條 (McD)</b>：工廠預炸（160℃）→ 急凍 → 門市第二炸（175℃）。中度氧化馬鈴薯澱粉薄膜是骨架核心。<br>
+          🍗 <b>韓式炸雞 (BBQ/橋村)</b>：薄裹粉 160℃ × 7min → 室溫晾 5–10 min → 180℃ × 90sec。咔滋聲是雙炸的招牌。<br>
+          🐟 <b>英國 Fish & Chips</b>：薯條 140℃ blanching → 冷卻 → 180℃ 上桌前急炸。Heston Blumenthal 推廣的「三炸法」起源。<br>
+          🥔 <b>比利時 Frites</b>：傳統三炸法（140 → 160 → 180℃），中間兩次冷卻 → 微孔比 McD 更密、更脆。<br>
+          🦐 <b>港式椒鹽蝦</b>：先川燙脫水 → 冷藏 30 min → 180℃ 急炸。雖無糊化，但水分梯度與冷卻定型同樣關鍵。<br>
+          🥟 <b>台灣天婦羅 / 甜不辣</b>：先低溫定型 → 冷卻 → 高溫上色，原理一致。
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#f7eddb; border:1px solid #d8b96a; border-left:4px solid var(--accent-2); border-radius:6px; padding:14px 16px; margin-top:14px">
+      <b style="color:#8a5a00">💼 業務口袋題：客戶想做「冷凍復炸不軟」的 OEM 產品</b>
+      <p style="margin:8px 0 0; font-size:14.5px; line-height:1.7">
+        賣點不是「我們的炸粉很厲害」，而是「我們幫您設計<b>三段加工 SOP</b>」：
+        <br>
+        ① 工廠端：第一炸 160℃ × 5 min → <b>急凍 -30℃</b>（鎖住短期老化結構）<br>
+        ② 物流端：全程 -18℃ 不解凍<br>
+        ③ 門市端：免解凍直接 180℃ × 90 sec
+        <br><br>
+        <span class="hl"><b>關鍵賣點話術：</b>「我們的修飾澱粉複配（中度氧化 + 醋酸取代）讓您的產品在 -18℃ 儲存 6 個月後，門市復炸出來的脆度<b>等於現炸 90%</b>，因為短期老化的骨架被低溫鎖住了。」</span>
+        <br><br>
+        客戶最常踩的雷：以為「冷藏 1 小時就好」 → 實際上至少要 -18℃ 急凍 30 分鐘才能完全鎖住直鏈雙螺旋構象。
+      </p>
+    </div>
+
+    <details class="tech">
+      <summary>🔬 技術層：為什麼直鏈澱粉幾十分鐘就老化、支鏈要幾天？</summary>
+      <div class="body" style="line-height:1.8">
+        關鍵在<b>分子幾何 + 空間位阻</b>：
+        <br><br>
+        <b>直鏈澱粉 (Amylose)：</b>
+        <br>
+        ・線性 α-1,4 glucopyranose 鏈（DP 500–6000）<br>
+        ・在水中以 random coil 構象存在<br>
+        ・<b>沒有分支阻擋</b>，兩條鏈可以平行靠近、形成<b>左手雙股螺旋 (B-type)</b>，每圈 6 個葡萄糖單元<br>
+        ・分子間氫鍵密度高、結晶速率快 → <b>幾分鐘到數小時</b>完成局部結晶<br>
+        <br>
+        <b>支鏈澱粉 (Amylopectin)：</b>
+        <br>
+        ・每 24–30 個葡萄糖就有一個 α-1,6 分支（cluster model）<br>
+        ・分支點之間的<b>外側 A-chains 平均 DP ≈ 12–16</b>，太短不利於穩定雙螺旋（至少需 DP 10）<br>
+        ・分支密度高造成嚴重<b>空間位阻</b>，鏈段難以平行靠近<br>
+        ・即使靠近，需要先突破 entanglement 與 cluster 拓樸限制 → <b>數天到數週</b>才能達顯著結晶<br>
+        <br>
+        <b>對應到實務：</b>
+        <br>
+        ・雙炸法的 30 min 冷卻 → 主要由<b>直鏈澱粉</b>貢獻骨架；支鏈幾乎沒貢獻<br>
+        ・隔夜麵包硬化 → 從<b>支鏈外側 A-chains</b> 開始，所以微波回烤可逆（融化結晶）<br>
+        ・冷凍急凍 → 把直鏈雙螺旋構象「凍住」、阻止水分子搶佔氫鍵位置 → 復炸時直接進入玻璃態<br>
+        <br>
+        <b>動力學速率對比 (相對值，25℃)：</b>直鏈結晶速率 ≈ 支鏈結晶速率 × <b>50–100×</b>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============== 11. 複配粉配方 ============== -->
 <section class="block" id="formula">
   <div class="container">
-    <h2><span class="num">07</span>油炸複配粉配方：每個成分在做什麼？</h2>
+    <h2><span class="num">11</span>油炸複配粉配方：每個成分在做什麼？</h2>
     <p class="lede">市售炸粉看似神秘，拆解下來不外乎七大類成分。下面是<b>典型台式酥炸粉</b>的概略骨架（業界常見區間，實際依產品微調）。點圖例可逐項展開。</p>
 
     <div class="card formula-wrap">
@@ -1152,7 +2505,9 @@ blockquote.pull{
       </div>
     </div>
 
+    <!-- 蛋白質、增稠劑、膨發劑 三大系統可視化對照 -->
     <div class="grid-3">
+      <!-- 蛋白質 -->
       <div class="card">
         <h3 style="margin-top:0; color:var(--accent-4)">🥚 蛋白質系統 (3–8%)</h3>
         <p style="margin:0 0 8px; font-size:14px; color:var(--ink-soft)">提供 <b>乳化、黏結、Maillard 上色底物</b> 三件事，是表皮香氣與附著率的關鍵。</p>
@@ -1171,6 +2526,7 @@ blockquote.pull{
         <div class="mini-bar"><span>成本   ↑↑</span><div class="mb"><div style="width:60%; background:#aaa"></div></div></div>
       </div>
 
+      <!-- 增稠劑 -->
       <div class="card">
         <h3 style="margin-top:0; color:var(--accent-3)">🧪 增稠劑系統 (&lt; 0.5%)</h3>
         <p style="margin:0 0 8px; font-size:14px; color:var(--ink-soft)">用量極小，作用極大。穩定裹漿<b>黏度與懸浮性</b>，防止靜置分層、防止滴落。</p>
@@ -1189,6 +2545,7 @@ blockquote.pull{
         <div class="mini-bar"><span>用量需求 ↓↓↓</span><div class="mb"><div style="width:15%; background:#3e6b9b"></div></div></div>
       </div>
 
+      <!-- 膨發劑 -->
       <div class="card">
         <h3 style="margin-top:0; color:var(--accent)">🫧 膨發劑系統 (1–4%)</h3>
         <p style="margin:0 0 8px; font-size:14px; color:var(--ink-soft)">產氣形成<b>內部孔洞</b>。原則：要「<u>慢釋出</u>」，太早釋氣會在裹粉階段就用光。</p>
@@ -1208,6 +2565,7 @@ blockquote.pull{
       </div>
     </div>
 
+    <!-- SAPP 雙作用釋氣示意 -->
     <div class="card">
       <h3 style="margin-top:0">⏱ SAPP 雙作用釋氣動畫（關鍵原則：「慢釋出」）</h3>
       <p style="margin:0 0 10px; color:var(--ink-soft)">下面是兩種膨發劑系統，從攪拌 → 裹粉 → 入油 → 油炸完成的 CO₂ 釋放曲線。看 SAPP 為什麼是黃金標準。</p>
@@ -1215,9 +2573,11 @@ blockquote.pull{
         <div>
           <div style="text-align:center; font-weight:700; color:#a8561a; margin-bottom:6px">小蘇打 + 酒石酸氫鉀（快釋）</div>
           <svg viewBox="0 0 360 160" style="width:100%; height:160px; background:#fff7ea; border-radius:8px; border:1px solid var(--line)">
+            <!-- 軸 -->
             <line x1="30" y1="130" x2="340" y2="130" stroke="#aaa" stroke-width="1"/>
             <line x1="30" y1="20" x2="30" y2="130" stroke="#aaa" stroke-width="1"/>
             <text x="32" y="14" font-size="10" fill="#555">CO₂ 釋出量</text>
+            <!-- 階段標 -->
             <text x="60" y="148" font-size="10" fill="#555" text-anchor="middle">攪拌</text>
             <text x="140" y="148" font-size="10" fill="#555" text-anchor="middle">裹粉</text>
             <text x="220" y="148" font-size="10" fill="#555" text-anchor="middle">入油</text>
@@ -1225,6 +2585,7 @@ blockquote.pull{
             <line x1="100" y1="20" x2="100" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="180" y1="20" x2="180" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="260" y1="20" x2="260" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
+            <!-- 快釋曲線 -->
             <path d="M 30 128 Q 65 30 100 28 L 180 50 L 260 95 L 340 120" fill="none" stroke="#c9472b" stroke-width="2.5"/>
             <text x="80" y="40" font-size="11" fill="#c9472b">早早衝高峰 → 入油時氣已用完 ❌</text>
           </svg>
@@ -1242,6 +2603,7 @@ blockquote.pull{
             <line x1="100" y1="20" x2="100" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="180" y1="20" x2="180" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
             <line x1="260" y1="20" x2="260" y2="130" stroke="#ddd" stroke-dasharray="2 2"/>
+            <!-- 雙峰曲線 -->
             <path d="M 30 128 Q 70 105 100 95 Q 140 80 180 75 Q 200 35 220 28 L 280 35 L 340 90" fill="none" stroke="#3e6b9b" stroke-width="2.5"/>
             <text x="65" y="100" font-size="11" fill="#3e6b9b">第一波釋氣（室溫）</text>
             <text x="225" y="22" font-size="11" fill="#3e6b9b">第二波（高溫衝爆）✓</text>
@@ -1263,9 +2625,10 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 12. 產品介紹 ============== -->
 <section class="block" id="products">
   <div class="container">
-    <h2><span class="num">08</span>國際油炸產品配方解析</h2>
+    <h2><span class="num">12</span>國際油炸產品配方解析</h2>
     <p class="lede">每個經典油炸品都有它的配方哲學。以下是六款代表性產品的炸粉拆解，幫你在跟客戶談規格時直接對上他們在比較的競品。</p>
 
     <div class="card">
@@ -1282,9 +2645,10 @@ blockquote.pull{
   </div>
 </section>
 
+<!-- ============== 13. 油炸食品指標 ============== -->
 <section class="block" id="metrics">
   <div class="container">
-    <h2><span class="num">09</span>油炸食品九大評分指標</h2>
+    <h2><span class="num">13</span>油炸食品九大評分指標</h2>
     <p class="lede">研發接到客戶 sample 後實驗室標準量測流程，跟客戶談規格時也能說「我們是這樣評估的」。</p>
     <div class="metrics">
       <div class="metric"><div class="k">① 油炸粉表皮分離率</div><div class="v">附著力低 → 易脫殼</div></div>
@@ -1904,19 +3268,24 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
+        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="186" rx="92" ry="11" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="184" rx="76" ry="6" fill="rgba(0,0,0,.18)"/>
         <g class="breathe" filter="url(#kfcShadow)">
+          <!-- 雞腿骨 -->
           <g transform="translate(120 62) rotate(-18)">
             <rect x="-7" y="-12" width="14" height="44" rx="7" fill="url(#kfcBone)" stroke="#9a8458" stroke-width=".7"/>
             <ellipse cx="-9" cy="-13" rx="11" ry="8" fill="url(#kfcBone)" stroke="#9a8458" stroke-width=".7"/>
             <ellipse cx="9" cy="-13" rx="11" ry="8" fill="url(#kfcBone)" stroke="#9a8458" stroke-width=".7"/>
             <ellipse cx="-7" cy="-15" rx="3" ry="2" fill="rgba(255,255,255,.6)"/>
           </g>
+          <!-- 主體外殼 -->
           <path d="M 70 178 Q 40 130 62 88 Q 88 50 132 60 Q 182 72 188 130 Q 192 175 150 180 Z"
                 fill="url(#kfcCoat)" stroke="#3a1804" stroke-width="1.6"/>
+          <!-- 暗角 -->
           <path d="M 70 178 Q 40 130 62 88 Q 88 50 132 60 Q 182 72 188 130 Q 192 175 150 180 Z"
                 fill="url(#kfcDeep)"/>
+          <!-- 鱗片麵衣紋理 -->
           <g fill="#2a1002" opacity=".6">
             <path d="M 76 130 q 8 -10 18 -3 q -5 11 -18 3 z"/>
             <path d="M 108 148 q 10 -8 20 1 q -7 10 -20 -1 z"/>
@@ -1928,23 +3297,27 @@ function drawStarchTree(svgId, modified, stage, mode){
             <path d="M 118 168 q 7 -8 14 -2 q -3 8 -14 2 z"/>
             <path d="M 155 168 q 6 -8 13 -2 q -3 8 -13 2 z"/>
           </g>
+          <!-- 微小斑點增加紋理 -->
           <g fill="#5a2607" opacity=".4">
             <circle cx="84" cy="115" r="1.2"/><circle cx="98" cy="138" r="1"/>
             <circle cx="135" cy="105" r="1.2"/><circle cx="148" cy="128" r="1"/>
             <circle cx="115" cy="135" r="1.2"/><circle cx="170" cy="120" r="1"/>
             <circle cx="105" cy="118" r=".9"/><circle cx="160" cy="105" r="1"/>
           </g>
+          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="98" cy="105" rx="3.5" ry="2.2"/>
             <ellipse class="sparkle s2" cx="128" cy="118" rx="3.5" ry="2.2"/>
             <ellipse class="sparkle s3" cx="158" cy="135" rx="3" ry="1.8"/>
             <ellipse class="sparkle s4" cx="115" cy="155" rx="3" ry="1.8"/>
           </g>
+          <!-- 移動的油亮反光條 -->
           <g clip-path="url(#kfcClip)">
             <rect class="shimmer-stripe" x="-60" y="50" width="48" height="140"
                   fill="url(#kfcGloss)" transform="skewX(-22)" opacity=".55"/>
           </g>
         </g>
+        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.6)">
           <circle class="oil-bubble" cx="60" cy="170" r="3"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2.5"/>
@@ -1997,20 +3370,26 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
+        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
+        <!-- 紙袋（後方） -->
         <path d="M 50 80 L 60 188 L 180 188 L 190 80 Z" fill="url(#bag)" stroke="#8a6a35" stroke-width="1.2"/>
         <path d="M 50 80 Q 70 70 120 70 Q 170 70 190 80" fill="none" stroke="#8a6a35" stroke-width="1.2"/>
+        <!-- 紙袋摺痕 -->
         <g stroke="rgba(120,90,40,.35)" stroke-width=".8" fill="none">
           <line x1="80" y1="80" x2="85" y2="186"/>
           <line x1="120" y1="72" x2="120" y2="188"/>
           <line x1="160" y1="80" x2="155" y2="186"/>
         </g>
         <g class="breathe" filter="url(#cutletShadow)">
+          <!-- 雞排主體 -->
           <path d="M 60 90 Q 50 30 120 28 Q 195 30 185 95 Q 185 110 170 110 L 70 110 Q 55 105 60 90 Z"
                 fill="url(#cutletCoat)" stroke="#3a1804" stroke-width="1.6"/>
+          <!-- 暗角 -->
           <path d="M 60 90 Q 50 30 120 28 Q 195 30 185 95 Q 185 110 170 110 L 70 110 Q 55 105 60 90 Z"
                 fill="url(#cutletDeep)"/>
+          <!-- 樹薯粒粉「顆粒感」（深色凸點） -->
           <g fill="#2a1002" opacity=".85">
             <circle cx="80" cy="55" r="2.2"/><circle cx="100" cy="42" r="1.8"/><circle cx="120" cy="38" r="2.4"/>
             <circle cx="140" cy="45" r="2"/><circle cx="160" cy="58" r="2.2"/><circle cx="170" cy="80" r="1.7"/>
@@ -2019,23 +3398,28 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle cx="100" cy="90" r="1.7"/><circle cx="170" cy="65" r="2.2"/><circle cx="85" cy="98" r="1.7"/>
             <circle cx="148" cy="82" r="1.6"/><circle cx="118" cy="50" r="1.5"/><circle cx="92" cy="80" r="1.4"/>
           </g>
+          <!-- 顆粒高光（亮面顆粒） -->
           <g fill="#fff5c0" opacity=".55">
             <circle cx="79" cy="54" r=".8"/><circle cx="119" cy="37" r="1"/><circle cx="159" cy="57" r=".9"/>
             <circle cx="89" cy="69" r=".7"/><circle cx="134" cy="74" r=".8"/><circle cx="124" cy="94" r=".8"/>
           </g>
+          <!-- 焦邊 -->
           <path d="M 60 90 Q 50 30 120 28 Q 195 30 185 95"
                 fill="none" stroke="rgba(50,18,3,.55)" stroke-width="2.2"/>
+          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="92" cy="50" rx="4.5" ry="2.5" transform="rotate(-20 92 50)"/>
             <ellipse class="sparkle s2" cx="148" cy="55" rx="4.5" ry="2.5" transform="rotate(15 148 55)"/>
             <ellipse class="sparkle s3" cx="115" cy="78" rx="3.5" ry="2"/>
             <ellipse class="sparkle s4" cx="160" cy="98" rx="3" ry="1.8"/>
           </g>
+          <!-- 移動的油亮反光條 -->
           <g clip-path="url(#cutletClip)">
             <rect class="shimmer-stripe" x="-60" y="20" width="42" height="100"
                   fill="url(#cutletGloss)" transform="skewX(-22)" opacity=".55"/>
           </g>
         </g>
+        <!-- 椒鹽落下動畫 -->
         <g fill="#7a3a07">
           <circle class="salt-fall" cx="105" cy="40" r="1.1"/>
           <circle class="salt-fall s2" cx="135" cy="35" r=".9"/>
@@ -2043,6 +3427,7 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s4" cx="90" cy="38" r=".9"/>
           <circle class="salt-fall s5" cx="120" cy="32" r="1"/>
         </g>
+        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.6)">
           <circle class="oil-bubble" cx="55" cy="170" r="3"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2.5"/>
@@ -2097,11 +3482,14 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
+        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
+        <!-- 紙袋盒 -->
         <path d="M 40 90 L 50 188 L 190 188 L 200 90 Z" fill="url(#ssBox)" stroke="#8a6a35" stroke-width="1.2"/>
         <path d="M 40 90 L 200 90" stroke="#8a6a35" stroke-width="1" stroke-dasharray="4 3"/>
         <g class="breathe" filter="url(#ssShadow)">
+          <!-- 鹹酥雞 5 塊 -->
           <g stroke="#2a1002" stroke-width="1.4">
             <path d="M 60 95 q -10 -25 15 -32 q 25 -3 28 18 q 0 18 -16 24 q -22 4 -27 -10 z" fill="url(#ssCoat)"/>
             <path d="M 60 95 q -10 -25 15 -32 q 25 -3 28 18 q 0 18 -16 24 q -22 4 -27 -10 z" fill="url(#ssDeep)"/>
@@ -2114,6 +3502,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <path d="M 130 130 q -10 -16 14 -22 q 22 -3 26 12 q 0 14 -18 18 q -16 0 -22 -8 z" fill="url(#ssCoat)"/>
             <path d="M 130 130 q -10 -16 14 -22 q 22 -3 26 12 q 0 14 -18 18 q -16 0 -22 -8 z" fill="url(#ssDeep)"/>
           </g>
+          <!-- 鱗片麵衣紋理（深點） -->
           <g fill="#2a1002" opacity=".75">
             <circle cx="78" cy="74" r="1.5"/><circle cx="92" cy="68" r="1.7"/><circle cx="86" cy="84" r="1.4"/>
             <circle cx="125" cy="60" r="1.5"/><circle cx="138" cy="68" r="1.7"/><circle cx="118" cy="80" r="1.6"/>
@@ -2122,6 +3511,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle cx="148" cy="118" r="1.6"/><circle cx="160" cy="128" r="1.7"/>
             <circle cx="73" cy="92" r="1.3"/><circle cx="142" cy="82" r="1.3"/>
           </g>
+          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="78" cy="72" rx="3" ry="1.8" transform="rotate(-15 78 72)"/>
             <ellipse class="sparkle s2" cx="125" cy="62" rx="3.2" ry="1.8" transform="rotate(10 125 62)"/>
@@ -2130,16 +3520,19 @@ function drawStarchTree(svgId, modified, stage, mode){
             <ellipse class="sparkle" cx="148" cy="120" rx="3" ry="1.8" transform="rotate(15 148 120)" style="animation-delay:1.2s"/>
           </g>
         </g>
+        <!-- 九層塔（搖擺） -->
         <g fill="url(#basilGrad)" stroke="#1a3a08" stroke-width=".6">
           <path class="leaf-sway" d="M 50 122 q 6 -16 22 -12 q 4 4 4 8 q -2 12 -22 10 q -6 -2 -4 -6 z"/>
           <path class="leaf-sway l2" d="M 175 70 q 14 -12 24 -2 q 2 6 -2 10 q -10 8 -22 0 q -4 -4 0 -8 z"/>
           <path class="leaf-sway l3" d="M 165 148 q 14 -10 20 2 q 0 6 -4 8 q -10 4 -18 -4 q -2 -3 2 -6 z"/>
+          <!-- 葉脈 -->
           <g stroke="#1a3a08" stroke-width=".6" fill="none" opacity=".7">
             <path d="M 53 120 q 10 -6 20 -8"/>
             <path d="M 178 76 q 8 -2 18 -4"/>
             <path d="M 168 150 q 7 -2 15 -4"/>
           </g>
         </g>
+        <!-- 椒鹽落下 -->
         <g fill="#fff8d5" opacity=".85">
           <circle class="salt-fall" cx="80" cy="100" r=".9"/>
           <circle class="salt-fall s2" cx="105" cy="92" r=".9"/>
@@ -2148,6 +3541,7 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s5" cx="98" cy="140" r=".9"/>
           <circle class="salt-fall s2" cx="155" cy="138" r=".9"/>
         </g>
+        <!-- 起鍋油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="50" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2"/>
@@ -2199,12 +3593,15 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
+        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.28)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
+        <!-- 紙袋 -->
         <path d="M 60 110 L 70 188 L 170 188 L 180 110 Z" fill="url(#twBag)" stroke="#8a6a35" stroke-width="1.2"/>
         <path d="M 60 110 L 70 188 L 170 188 L 180 110 Z" fill="url(#twBagShade)"/>
         <path d="M 60 110 L 180 110" stroke="#8a6a35" stroke-width="1"/>
         <g class="breathe" filter="url(#twShadow)">
+          <!-- 較粗的薯條 (8 條) -->
           <g stroke="#3a1804" stroke-width="1.3">
             <rect x="68" y="40" width="14" height="105" rx="5" fill="url(#twFry)" transform="rotate(-8 75 95)"/>
             <rect x="86" y="32" width="14" height="120" rx="5" fill="url(#twFry)" transform="rotate(-3 93 95)"/>
@@ -2215,6 +3612,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="148" y="60" width="13" height="92" rx="5" fill="url(#twFry)" opacity=".88" transform="rotate(12 155 100)"/>
             <rect x="110" y="50" width="13" height="100" rx="5" fill="url(#twFry)" opacity=".82" transform="rotate(-2 116 100)"/>
           </g>
+          <!-- 立體陰影條（兩側暗色） -->
           <g>
             <rect x="68" y="40" width="14" height="105" rx="5" fill="url(#twFryDeep)" transform="rotate(-8 75 95)" opacity=".6"/>
             <rect x="86" y="32" width="14" height="120" rx="5" fill="url(#twFryDeep)" transform="rotate(-3 93 95)" opacity=".55"/>
@@ -2222,6 +3620,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="122" y="32" width="14" height="120" rx="5" fill="url(#twFryDeep)" transform="rotate(3 129 95)" opacity=".55"/>
             <rect x="140" y="40" width="14" height="105" rx="5" fill="url(#twFryDeep)" transform="rotate(8 147 95)" opacity=".6"/>
           </g>
+          <!-- 油亮反光條 -->
           <g fill="#fff8d5" opacity=".55">
             <rect x="71" y="55" width="2.2" height="80" transform="rotate(-8 72 95)"/>
             <rect x="89" y="40" width="2.2" height="100" transform="rotate(-3 90 90)"/>
@@ -2229,6 +3628,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="125" y="40" width="2.2" height="100" transform="rotate(3 126 90)"/>
             <rect x="143" y="55" width="2.2" height="80" transform="rotate(8 144 95)"/>
           </g>
+          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <circle class="sparkle" cx="76" cy="60" r="1.6" transform="rotate(-8 76 60)"/>
             <circle class="sparkle s2" cx="111" cy="50" r="1.8"/>
@@ -2237,6 +3637,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle class="sparkle" cx="128" cy="100" r="1.6" style="animation-delay:1.4s"/>
           </g>
         </g>
+        <!-- 椒鹽撒粉（落下） -->
         <g fill="#7a3a07">
           <circle class="salt-fall" cx="92" cy="62" r="1"/>
           <circle class="salt-fall s2" cx="108" cy="55" r="1"/>
@@ -2245,6 +3646,7 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s5" cx="100" cy="95" r="1"/>
           <circle class="salt-fall s2" cx="135" cy="90" r="1"/>
         </g>
+        <!-- 起鍋油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="55" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="195" cy="160" r="2"/>
@@ -2300,13 +3702,17 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
+        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="190" rx="100" ry="10" fill="rgba(0,0,0,.3)"/>
         <ellipse cx="120" cy="188" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
+        <!-- 紅色薯條盒 -->
         <path d="M 60 110 L 75 188 L 165 188 L 180 110 Z" fill="url(#redBox)" stroke="#5a0905" stroke-width="1.2"/>
         <path d="M 60 110 L 75 188 L 165 188 L 180 110 Z" fill="url(#redBoxShade)"/>
+        <!-- 黃色 M 形帶 -->
         <path d="M 60 110 L 180 110 L 175 130 L 65 130 Z" fill="url(#yellowBand)" stroke="#a87000" stroke-width=".8"/>
         <path d="M 95 115 q 10 -10 20 0 q 10 -10 20 0 L 130 130 L 110 130 Z" fill="#cc1c10" stroke="#5a0905" stroke-width=".8"/>
         <g class="breathe" filter="url(#usShadow)">
+          <!-- 細薯條 -->
           <g stroke="#3a1804" stroke-width=".9">
             <rect x="76" y="38" width="6" height="80" rx="2" fill="url(#usFry)" transform="rotate(-12 79 80)"/>
             <rect x="86" y="28" width="6" height="92" rx="2" fill="url(#usFry)" transform="rotate(-7 89 75)"/>
@@ -2321,6 +3727,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="100" y="34" width="5" height="86" rx="2" fill="url(#usFry)" opacity=".82"/>
             <rect x="130" y="34" width="5" height="86" rx="2" fill="url(#usFry)" opacity=".82" transform="rotate(4 132 78)"/>
           </g>
+          <!-- 立體陰影條 -->
           <g>
             <rect x="76" y="38" width="6" height="80" rx="2" fill="url(#usFryDeep)" transform="rotate(-12 79 80)" opacity=".6"/>
             <rect x="86" y="28" width="6" height="92" rx="2" fill="url(#usFryDeep)" transform="rotate(-7 89 75)" opacity=".55"/>
@@ -2331,6 +3738,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="136" y="30" width="6" height="92" rx="2" fill="url(#usFryDeep)" transform="rotate(9 139 76)" opacity=".6"/>
             <rect x="146" y="40" width="6" height="80" rx="2" fill="url(#usFryDeep)" transform="rotate(13 149 80)" opacity=".6"/>
           </g>
+          <!-- 油亮反光細條 -->
           <g fill="#fff8d5" opacity=".7">
             <rect x="78" y="50" width="1.2" height="60" transform="rotate(-12 78 80)"/>
             <rect x="98" y="32" width="1.2" height="80" transform="rotate(-3 98 70)"/>
@@ -2338,6 +3746,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <rect x="118" y="32" width="1.2" height="80" transform="rotate(2 118 70)"/>
             <rect x="138" y="44" width="1.2" height="64" transform="rotate(9 138 76)"/>
           </g>
+          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <circle class="sparkle" cx="86" cy="50" r="1.5"/>
             <circle class="sparkle s2" cx="110" cy="40" r="1.6"/>
@@ -2346,6 +3755,7 @@ function drawStarchTree(svgId, modified, stage, mode){
             <circle class="sparkle" cx="125" cy="92" r="1.4" style="animation-delay:1.6s"/>
           </g>
         </g>
+        <!-- 鹽粒落下 -->
         <g fill="#fff" opacity=".95">
           <circle class="salt-fall" cx="92" cy="40" r=".9"/>
           <circle class="salt-fall s2" cx="115" cy="32" r=".9"/>
@@ -2353,6 +3763,7 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="salt-fall s4" cx="105" cy="55" r=".8"/>
           <circle class="salt-fall s5" cx="128" cy="58" r=".8"/>
         </g>
+        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="50" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="200" cy="160" r="2"/>
@@ -2414,7 +3825,9 @@ function drawStarchTree(svgId, modified, stage, mode){
             <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
+        <!-- 盤底大陰影 -->
         <ellipse cx="120" cy="186" rx="105" ry="10" fill="rgba(0,0,0,.28)"/>
+        <!-- 竹編盤 -->
         <ellipse cx="120" cy="160" rx="105" ry="22" fill="url(#plate)" stroke="#5a4a20" stroke-width="1.2"/>
         <ellipse cx="120" cy="156" rx="98" ry="18" fill="url(#plateInner)" stroke="#8a7a50" stroke-width="1"/>
         <g stroke="#a89868" stroke-width=".7" fill="none" opacity=".7">
@@ -2424,11 +3837,14 @@ function drawStarchTree(svgId, modified, stage, mode){
           <line x1="55" y1="142" x2="185" y2="142"/>
         </g>
         <g class="breathe" filter="url(#tenShadow)">
+          <!-- 天婦羅蝦 -->
           <g transform="translate(120 110)">
+            <!-- 麵衣（透視花瓣） -->
             <path d="M -50 30 Q -55 -10 -30 -25 Q 0 -38 30 -28 Q 55 -10 50 30 Q 50 45 0 45 Q -50 45 -50 30 Z"
                   fill="url(#tenCoat)" stroke="#3a1804" stroke-width="1.6"/>
             <path d="M -50 30 Q -55 -10 -30 -25 Q 0 -38 30 -28 Q 55 -10 50 30 Q 50 45 0 45 Q -50 45 -50 30 Z"
                   fill="url(#tenDeep)"/>
+            <!-- 花瓣狀外緣 -->
             <g fill="url(#tenCoat)" stroke="#3a1804" stroke-width="1.1">
               <circle cx="-48" cy="20" r="6.5"/>
               <circle cx="-42" cy="40" r="5.5"/>
@@ -2444,27 +3860,33 @@ function drawStarchTree(svgId, modified, stage, mode){
               <circle cx="-15" cy="-30" r="4.5"/>
               <circle cx="15" cy="-30" r="4.5"/>
             </g>
+            <!-- 麵衣紋理小斑點 -->
             <g fill="#3a1804" opacity=".55">
               <circle cx="-30" cy="0" r="1.3"/><circle cx="-10" cy="-10" r="1.2"/>
               <circle cx="15" cy="-5" r="1.3"/><circle cx="32" cy="8" r="1.2"/>
               <circle cx="-20" cy="20" r="1.3"/><circle cx="10" cy="22" r="1.2"/>
               <circle cx="28" cy="28" r="1.3"/><circle cx="-32" cy="30" r="1.2"/>
             </g>
+            <!-- 蝦尾露出 -->
             <path d="M -10 -30 Q -5 -45 0 -50 Q 5 -45 10 -30 Z" fill="url(#shrimp)" stroke="#5a0a05" stroke-width="1"/>
             <path d="M -4 -48 L 0 -56 M 0 -50 L 0 -58 M 4 -48 L 0 -56" stroke="#5a0a05" stroke-width="1" fill="none"/>
+            <!-- 蝦尾高光 -->
             <ellipse cx="0" cy="-40" rx="1.5" ry="3" fill="#fff" opacity=".55"/>
           </g>
+          <!-- 油亮高光點（閃爍） -->
           <g fill="#fff8d5">
             <ellipse class="sparkle" cx="92" cy="92" rx="3.5" ry="2"/>
             <ellipse class="sparkle s2" cx="125" cy="100" rx="3.5" ry="2"/>
             <ellipse class="sparkle s3" cx="155" cy="105" rx="3" ry="1.8"/>
             <ellipse class="sparkle s4" cx="105" cy="125" rx="3" ry="1.8"/>
           </g>
+          <!-- 移動油亮反光條 -->
           <g clip-path="url(#tenClip)">
             <rect class="shimmer-stripe" x="-60" y="70" width="40" height="100"
                   fill="url(#tenGloss)" transform="skewX(-22)" opacity=".5"/>
           </g>
         </g>
+        <!-- 點綴蔬菜 (青椒/茄子) -->
         <g filter="url(#tenShadow)">
           <ellipse cx="50" cy="135" rx="14" ry="10" fill="url(#tenCoat)" stroke="#3a1804" stroke-width="1.2"/>
           <ellipse cx="50" cy="135" rx="6" ry="3" fill="#5a8c3a"/>
@@ -2473,6 +3895,7 @@ function drawStarchTree(svgId, modified, stage, mode){
           <ellipse cx="190" cy="135" rx="5" ry="3" fill="#7a3a07"/>
           <ellipse cx="188" cy="132" rx="2" ry="1" fill="#fff" opacity=".5"/>
         </g>
+        <!-- 天かす 屑（小花瓣，飄動） -->
         <g fill="url(#tenCoat)" stroke="#3a1804" stroke-width=".5">
           <circle class="tenkasu" cx="35" cy="115" r="2.5"/>
           <circle class="tenkasu t2" cx="205" cy="118" r="2.2"/>
@@ -2481,6 +3904,7 @@ function drawStarchTree(svgId, modified, stage, mode){
           <circle class="tenkasu" cx="80" cy="148" r="1.5" style="animation-delay:1.5s"/>
           <circle class="tenkasu t3" cx="160" cy="148" r="1.7" style="animation-delay:.8s"/>
         </g>
+        <!-- 油泡 -->
         <g fill="rgba(255,220,160,.55)">
           <circle class="oil-bubble" cx="30" cy="170" r="2.5"/>
           <circle class="oil-bubble b2" cx="210" cy="170" r="2"/>
@@ -2562,6 +3986,7 @@ function drawStarchTree(svgId, modified, stage, mode){
 
 <footer>
   <div>教材整理：Kiwi · 基於 20210621 S03 裹漿/裹粉澱粉 教材擴增。所有配方比例為業界常見區間，實際依配方目標微調。</div>
+  <div style="margin-top:6px">資料來源檔案：<a href="https://drive.google.com/file/d/1O9wt1wBEDQQj6q-A9HLLATCPO8xl89Eh/view?usp=drivesdk" target="_blank">20210621 S03裹漿裹粉澱粉.pptx</a></div>
 </footer>
 
 <script>
@@ -2677,6 +4102,262 @@ function drawStarchTree(svgId, modified, stage, mode){
   });
 
   setStep(1);
+})();
+</script>
+
+<script>
+/* ====== 肌球蛋白溫度響應動畫 ====== */
+(function(){
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const layer = document.getElementById('myosinLayer');
+  const xlinkLayer = document.getElementById('crosslinkLayer');
+  if (!layer) return;
+  const thermoFill = document.getElementById('thermoFill');
+  const tempText = document.getElementById('myoTempText');
+  const viscFill = document.getElementById('viscFill');
+  const viscText = document.getElementById('myoViscText');
+  const stageLabel = document.getElementById('myoStageLabel');
+  const caption = document.getElementById('myosinCaption');
+  const btns = document.querySelectorAll('.myosin-btn[data-stage]');
+  const autoBtn = document.getElementById('myosinAuto');
+
+  // 4 myosin molecules in 2x2 grid (positions in #myosinLayer local coords)
+  const molPositions = [
+    {x: 30,  y: 50},
+    {x: 240, y: 30},
+    {x: 30,  y: 220},
+    {x: 240, y: 210}
+  ];
+
+  const stages = {
+    1: {temp:25, visc:6,  name:'天然態 (Native) — 25℃',                color:'#5a8c3a'},
+    2: {temp:42, visc:30, name:'頭部 S1 開始展開 — 42℃',                color:'#d89a38'},
+    3: {temp:52, visc:55, name:'柄區 α-螺旋熔解 — 52℃',                  color:'#c47a1c'},
+    4: {temp:72, visc:80, name:'S–S 共價交聯 + Maillard 啟動 — 72℃',     color:'#c9472b'},
+    5: {temp:88, visc:98, name:'完全凝固 — 三維網絡（不可逆） — 88℃',     color:'#7a1a08'}
+  };
+
+  const captions = {
+    1: '<b style="color:#5a8c3a">25℃ 天然態 (Native)：</b>肌球蛋白以六聚體存在（2 重鏈 + 4 輕鏈，~520 kDa）。<b>頭部 S1</b> 球狀緊密、<b>柄區 (Rod)</b> 為 α-螺旋雙股纏繞 (coiled-coil)。分子彼此獨立游動，溶液稀薄（黏度 ~6 cP）。',
+    2: '<b style="color:#d89a38">40–45℃ 頭部 S1 開始展開：</b>球狀域解構，<span style="color:#c9472b; font-weight:700">疏水基團暴露</span>（紅點）→ 分子間透過疏水交互作用互相靠近。<b>溶液黏度急速上升</b>（~30 cP）。這是「醃肉摔打到變黏」的物理起點 — 鹽溶後再加熱，介面已開始重組。',
+    3: '<b style="color:#c47a1c">50–55℃ 柄區 α-螺旋熔解：</b>coiled-coil 雙股解開成單股無規則捲曲，<b>柄區之間（rod-rod）開始尾尾交聯</b>形成早期凝膠網絡（橘色虛線）。半胱胺酸 -SH 大量暴露（黃點），體系從黏稠液體 → 弱凝膠（gel-sol 過渡）。',
+    4: '<b style="color:#c9472b">60–80℃ S–S 共價交聯 + Maillard 啟動：</b>半胱胺酸 -SH 氧化成 <b>S–S 雙硫鍵</b>（黃色虛線連接，鍵能 ~250 kJ/mol），蛋白質被「分子焊接」永久縫合。同時離胺酸 -NH₂ 與還原糖在表面走 Maillard（橘色光暈），<b>麵衣與肉表面被「分子膠」+「分子釘」雙重鎖死</b>。',
+    5: '<b style="color:#7a1a08">&gt;80℃ 完全凝固 — 不可逆：</b>所有分子被共價鍵 (S–S) + 疏水疊加 + Maillard 類黑精交聯成<b>緻密三維凝膠網絡</b>。冷卻不能還原。這就是炸雞外殼與肉表面被「焊死」的最終狀態 — 也是冷凍解凍仍不脫殼的根本原因。'
+  };
+
+  // Helper
+  function el(tag, attrs, parent, text){
+    const e = document.createElementNS(SVG_NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  function drawMolecule(g, stage){
+    const c = stages[stage].color;
+    // Heads + Maillard glow on stages 4-5
+    if (stage >= 4){
+      const glow1 = el('circle', {cx:0, cy:0, r:18, fill:'#ffd97a'}, g);
+      const glow2 = el('circle', {cx:14, cy:8, r:18, fill:'#ffd97a'}, g);
+      glow1.setAttribute('class', 'myo-glow');
+      glow2.setAttribute('class', 'myo-glow');
+    }
+    const headFill = stage === 1 ? 'url(#myoHead)' : (stage >= 5 ? 'url(#myoHeadGel)' : 'url(#myoHeadUnfold)');
+    const headR = stage === 1 ? 11 : (stage <= 3 ? 10 : 9);
+    el('circle', {cx:0,  cy:0, r:headR, fill:headFill, stroke:'#5a3a18', 'stroke-width':1.5}, g);
+    el('circle', {cx:14, cy:8, r:headR, fill:headFill, stroke:'#5a3a18', 'stroke-width':1.5}, g);
+
+    // Light chains (only stage 1)
+    if (stage === 1){
+      [[-8,-8],[-4,-12],[8,-8],[20,0]].forEach(([x,y])=>{
+        el('circle', {cx:x, cy:y, r:3, fill:'#fff', stroke:'#5a3a18', 'stroke-width':1}, g);
+      });
+    }
+
+    // Hydrophobic patches (stage 2+)
+    if (stage >= 2){
+      [[-5,4],[3,-5],[11,14],[18,4],[-3,-3],[7,11]].forEach(([x,y])=>{
+        el('circle', {cx:x, cy:y, r:1.6, fill:'#c9472b'}, g);
+      });
+    }
+
+    // Splayed head extensions (stage 2 only)
+    if (stage === 2){
+      ['M -8 -3 q -8 -8 -4 -14','M 22 4 q 8 -8 14 -4','M 6 14 q -2 8 4 12'].forEach(d=>{
+        el('path', {d, fill:'none', stroke:'#5a3a18', 'stroke-width':1.4, 'stroke-linecap':'round'}, g);
+      });
+    }
+
+    // Rod
+    if (stage === 1){
+      // intact coiled-coil (two intertwined sine waves)
+      el('path', {d:'M 24 4 Q 40 -2 56 4 Q 72 10 88 4 Q 104 -2 120 4 Q 136 10 152 4', fill:'none', stroke:'#5a8c3a', 'stroke-width':2.2, 'stroke-linecap':'round'}, g);
+      el('path', {d:'M 24 8 Q 40 14 56 8 Q 72 2 88 8 Q 104 14 120 8 Q 136 2 152 8', fill:'none', stroke:'#5a8c3a', 'stroke-width':2.2, 'stroke-linecap':'round'}, g);
+    } else if (stage === 2){
+      // looser coiled-coil
+      el('path', {d:'M 24 4 Q 40 -3 56 5 Q 72 12 88 4 Q 104 -3 120 5 Q 136 12 152 4', fill:'none', stroke:'#5a8c3a', 'stroke-width':2, 'stroke-linecap':'round'}, g);
+      el('path', {d:'M 24 9 Q 40 16 56 8 Q 72 1 88 9 Q 104 16 120 8 Q 136 1 152 9', fill:'none', stroke:'#5a8c3a', 'stroke-width':2, 'stroke-linecap':'round'}, g);
+    } else if (stage === 3){
+      // single wavy chain
+      el('path', {d:'M 24 6 Q 32 -6 44 8 Q 58 22 72 4 Q 84 -10 96 10 Q 108 24 122 4 Q 134 -8 148 8 Q 156 14 162 6', fill:'none', stroke:'#c47a1c', 'stroke-width':2.5, 'stroke-linecap':'round'}, g);
+      // -SH groups exposed
+      [44, 96, 148].forEach(x=>{
+        el('circle', {cx:x, cy:6, r:2.6, fill:'#fde481', stroke:'#7a5a08', 'stroke-width':.8}, g);
+      });
+    } else if (stage === 4){
+      // chain with S-S labels
+      el('path', {d:'M 24 6 Q 36 0 50 8 Q 66 14 80 4 Q 94 0 108 8 Q 124 14 140 6 Q 152 4 162 6', fill:'none', stroke:'#a8501c', 'stroke-width':2.5, 'stroke-linecap':'round'}, g);
+      [50, 108].forEach(x=>{
+        el('circle', {cx:x, cy:6, r:2.4, fill:'#fde481', stroke:'#7a5a08', 'stroke-width':.8}, g);
+      });
+    } else if (stage === 5){
+      // tight, dense rod
+      el('path', {d:'M 24 6 Q 40 4 56 6 Q 72 8 88 6 Q 104 4 120 6 Q 136 8 152 6', fill:'none', stroke:'#5a3008', 'stroke-width':2.8, 'stroke-linecap':'round'}, g);
+      [40, 72, 104, 136].forEach(x=>{
+        el('circle', {cx:x, cy:6, r:2.2, fill:'#fde481', stroke:'#7a5a08', 'stroke-width':.8}, g);
+      });
+    }
+  }
+
+  function renderMolecules(stage){
+    layer.innerHTML = '';
+    molPositions.forEach((p, i) => {
+      // outer wrapper holds position; inner gets CSS animation
+      const wrap = el('g', {transform:`translate(${p.x} ${p.y})`}, layer);
+      const inner = el('g', {}, wrap);
+      let cls = 'myo-mol';
+      if (stage === 1) cls += ' myo-float';
+      else if (stage === 2) cls += ' myo-vibrate';
+      else if (stage === 3) cls += ' myo-vibrate';
+      else if (stage === 4) cls += ' myo-shiver';
+      // stage 5 = locked, no animation
+      inner.setAttribute('class', cls);
+      inner.style.animationDelay = (i * 0.4) + 's';
+      drawMolecule(inner, stage);
+    });
+  }
+
+  function renderCrosslinks(stage){
+    xlinkLayer.innerHTML = '';
+    if (stage < 3) return;
+
+    const rodPoints = (idx, t) => ({
+      x: molPositions[idx].x + 24 + (162-24)*t,
+      y: molPositions[idx].y + 6
+    });
+    const head = (idx) => ({
+      x: molPositions[idx].x + 7,
+      y: molPositions[idx].y + 4
+    });
+
+    if (stage === 3){
+      // a few tail-tail tentative crosslinks (orange dashed)
+      [
+        [rodPoints(0, 1), head(1)],
+        [rodPoints(2, 1), head(3)],
+        [rodPoints(0, .7), rodPoints(2, .7)]
+      ].forEach(([a, b]) => {
+        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2 - 6;
+        el('path', {
+          d:`M ${a.x} ${a.y} Q ${mx} ${my} ${b.x} ${b.y}`,
+          fill:'none', stroke:'#c47a1c', 'stroke-width':1.6,
+          'stroke-dasharray':'3 2', opacity:.7
+        }, xlinkLayer);
+      });
+    } else if (stage === 4){
+      // S-S yellow connections between molecules
+      const links = [
+        [rodPoints(0, 1), head(1)],
+        [rodPoints(2, 1), head(3)],
+        [rodPoints(0, .6), rodPoints(2, .6)],
+        [rodPoints(1, .6), rodPoints(3, .6)],
+        [rodPoints(0, .3), head(2)]
+      ];
+      links.forEach(([a, b]) => {
+        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        el('line', {
+          x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+          stroke:'#e8c44a', 'stroke-width':2.5,
+          'stroke-dasharray':'4 2', 'stroke-linecap':'round'
+        }, xlinkLayer);
+        el('text', {
+          x:mx, y:my-3, 'text-anchor':'middle',
+          'font-size':9, fill:'#7a5a08', 'font-weight':800
+        }, xlinkLayer, 'S–S');
+      });
+    } else if (stage === 5){
+      // dense network: many crosslinks
+      const allPts = [];
+      molPositions.forEach((p, i) => {
+        for (let t = .15; t <= 1; t += .25){
+          allPts.push({x: p.x + 24 + (162-24)*t, y: p.y + 6, mol: i});
+        }
+      });
+      // pair points across different molecules
+      const pairs = [
+        [0,5],[1,6],[2,7],[3,8],[4,12],[5,13],[6,14],[7,15],
+        [8,16],[9,17],[10,18],[11,19],[0,16],[1,17],[2,18],[3,19],
+        [4,8],[5,9],[12,16],[13,17],[8,12],[9,13]
+      ];
+      pairs.forEach(([i, j]) => {
+        if (i >= allPts.length || j >= allPts.length) return;
+        const a = allPts[i], b = allPts[j];
+        if (a.mol === b.mol) return;
+        el('line', {
+          x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+          stroke:'#7a3a08', 'stroke-width':1.4, opacity:.55
+        }, xlinkLayer);
+      });
+      // also head-to-head Maillard interfaces
+      [[0,1],[2,3],[0,2],[1,3]].forEach(([i, j]) => {
+        const a = head(i), b = head(j);
+        el('line', {
+          x1:a.x, y1:a.y, x2:b.x, y2:b.y,
+          stroke:'#c9472b', 'stroke-width':1.5, opacity:.5,
+          'stroke-dasharray':'2 2'
+        }, xlinkLayer);
+      });
+    }
+  }
+
+  function setStage(n){
+    const s = stages[n];
+    renderMolecules(n);
+    renderCrosslinks(n);
+
+    // Thermo: temp 0~100 maps y from 298 (bottom) to 32 (top), height 266
+    const fillH = (s.temp / 100) * 266;
+    thermoFill.setAttribute('y', 298 - fillH);
+    thermoFill.setAttribute('height', fillH);
+    tempText.textContent = s.temp + '℃';
+
+    // Viscosity bar (same y range)
+    const viscH = (s.visc / 100) * 266;
+    viscFill.setAttribute('y', 298 - viscH);
+    viscFill.setAttribute('height', viscH);
+    viscText.textContent = s.visc + '%';
+
+    stageLabel.textContent = s.name;
+    stageLabel.setAttribute('fill', s.color);
+    caption.innerHTML = captions[n];
+    btns.forEach(b => b.classList.toggle('on', +b.dataset.stage === n));
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => setStage(+b.dataset.stage)));
+
+  let autoT = null;
+  autoBtn.addEventListener('click', () => {
+    if (autoT){ clearInterval(autoT); autoT = null; autoBtn.textContent = '▶ 自動加熱'; return; }
+    autoBtn.textContent = '■ 停止';
+    let i = 1; setStage(1);
+    autoT = setInterval(() => {
+      i = i % 5 + 1;
+      setStage(i);
+    }, 3500);
+  });
+
+  setStage(1);
 })();
 </script>
 
